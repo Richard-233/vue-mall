@@ -24,8 +24,8 @@ export default {
 .footer{
   height:234px;
   border-top:4px solid #e4291e;
-  background-color: #333333;
-  color:#999999;
+  background-color: #FFFFFF;
+  color:#6C6C6C;
   font-size: 16px;
   text-align: center;
   .footer-logo{
@@ -39,7 +39,7 @@ export default {
   }
   .footer-link{
     a{
-      color:#999999;
+      color:#6C6C6C;
       display: inline-block;
     }
     span{

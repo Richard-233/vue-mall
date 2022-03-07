@@ -2,9 +2,13 @@ import Vue from 'vue'
 import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import VueLazyload from "vue-lazyload";
 import App from './App.vue'
 import ElementUI from 'element-ui';
 Vue.use(ElementUI);
+Vue.use(VueLazyload,{
+  loading:'/imgs/loading-svg/loading-bars.svg'
+});
 //跨域
 axios.defaults.baseURL='/api';
 axios.defaults.timeout=8000;

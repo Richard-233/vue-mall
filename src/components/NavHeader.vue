@@ -57,16 +57,6 @@ export default {
 
   },
   methods:{
-    // getProductList(){
-    //   this.axios.get('/product/list',{
-    //     params:{
-    //       pageNum:'1',
-    //       pageSize:'10'
-    //     }
-    //   }).then((res)=>{
-    //     res.list;
-    //   })
-    // }
     login(){
       this.$router.push('/login');
     },
