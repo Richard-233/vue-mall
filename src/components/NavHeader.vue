@@ -9,10 +9,12 @@
           <a href="javascript:">协议规则</a>
         </div>
         <div class="topbar-user">
-          <a href="javascript:" v-if="username">{{username}}</a>
-          <a href="javascript:" v-if="!username" @click="login">登录</a>
-          <a href="javascript:" v-if="username">我的订单</a>
-          <a href="javascript:" v-if="!username">注册</a>
+          <a href="javascript:" v-if="user_nickname">
+            <img v-lazy="user_image" alt="" style="width: 25px;height: 25px;vertical-align: middle;">
+          </a>
+          <a href="javascript:" v-if="user_nickname">{{user_nickname}}</a>
+          <a href="javascript:" v-if="!user_nickname" @click="login">登录/注册</a>
+          <a href="javascript:" v-if="user_nickname">我的订单</a>
           <a href="javascript:" class="my-cart" @click="goToCart"><span class="icon-cart"></span> 购物车</a>
         </div>
       </div>
@@ -47,10 +49,17 @@ export default {
   name: 'nav-header',
   data(){
     return{
-      user_nickname:'肉球一号',
       productList:[],
       input:'',
       radio:'1'
+    }
+  },
+  computed:{
+    user_nickname(){
+      return this.$store.state.nickname;
+    },
+    user_image(){
+      return this.$store.state.user_image;
     }
   },
   mounted(){
