@@ -6,13 +6,13 @@
     <div class="wrapper">
       <div class="container">
         <div class="login-form">
-          <el-tabs class="el-tab" v-model="activeName" @tab-click="handleClick" stretch="true">
+          <el-tabs class="el-tab" v-model="activeName" :stretch="true">
             <el-tab-pane class="tab-pane" label="登录" name="first">
               <div class="input">
-                <el-input v-model="username" placeholder="请输入用户名" type="text"></el-input>
+                <el-input v-model="username" placeholder="请输入用户名"></el-input>
               </div>
               <div class="input">
-                <el-input v-model="password" placeholder="请输入密码" type="text"></el-input>
+                <el-input v-model="password" placeholder="请输入密码" type="password"></el-input>
               </div>
               <div class="btn-box">
                 <a href="javascript:;" class="btn" @click="login">登录
@@ -37,7 +37,7 @@
                 <a href="javascript:;" class="btn" @click="register">注册</a>
               </div>
               <div class="tips">
-                <div class="sms" @click="register">手机短信登录/注册</div>
+                <div class="sms">手机短信登录/注册</div>
               </div>
             </el-tab-pane>
           </el-tabs>
@@ -56,7 +56,7 @@
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex';
+// import { mapActions } from 'vuex';
 export default {
   name: 'login',
   data(){
@@ -64,35 +64,31 @@ export default {
       username:'',
       password:'',
       userId:'',
-      activeName: 'first'
+      activeName: 'first',
+      res:{},
+      user:{}
     }
   },
   methods:{
     login(){
-      let { username,password } = this;
-      this.axios.post('/user/login',{
-        username,
-        password
-      }).then((res)=>{
-        this.$cookie.set('userId',res.id,{expires:'Session'});
-        // this.$store.dispatch('saveUserName',res.username);
-        this.saveUserName(res.username);
-        this.$router.push({
-          name:'index',
-          params:{
-            from:'login'
-          }
+      this.user.username = this.username
+      this.user.password = this.password
+      this.axios.post('/api/user/login',this.user).then((res)=>{
+        this.$cookie.set('userId',res.id,{expires:'1M'});
+        this.$store.dispatch('saveUserInfo', {
+          nickname:res.nickname,
+          image:res.image
         });
+        this.$router.push('/index');
       })
     },
-    ...mapActions(['saveUserName']),
+    // ...mapActions(['saveUserName']),
     register(){
-      this.axios.post('/user/register',{
-        username:'admin1',
-        password:'admin1',
-        email:'admin1@163.com'
-      }).then(()=>{
+      this.user.username = this.username
+      this.user.password = this.password
+      this.axios.post('/api/user/register',this.user).then(()=>{
         this.$message.success('注册成功');
+        this.$router.push('/index');
       })
     }
   }
