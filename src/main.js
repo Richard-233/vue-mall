@@ -17,17 +17,21 @@ axios.defaults.timeout=8000;
 //接口错误拦截
 axios.interceptors.response.use(function(response){
   let res = response.data;
-  let path= location.hash;
+  // let path= location.hash;
   if(res.status ===666){
     return res.data;
   }else if(res.status ===10007){
-    if(path!=='#/index'){
-      window.location.href='/#/login'
-    }
+    // if(path!=='#/index'){
+    //   window.location.href='/#/login'
+    // }
   }else{
     alert(res.msg);
     return Promise.reject(res);
   }
+})
+
+router.afterEach(() => {
+  document.documentElement.scrollTop = 0;
 })
 
 Vue.use(VueAxios,axios);
@@ -39,3 +43,5 @@ new Vue({
   router,
   render: h => h(App),
 }).$mount('#app')
+
+

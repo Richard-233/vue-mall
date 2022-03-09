@@ -37,7 +37,7 @@
                 placeholder="新鲜水果"
                 v-model="input">
             </el-input>
-            <el-button type="primary" icon="el-icon-search" href="javascript:;" size="medium" round >搜索</el-button>
+            <el-button type="primary" icon="el-icon-search" href="javascript:;" size="medium" round @click="toSearch">搜索</el-button>
           </div>
         </div>
       </div>
@@ -71,6 +71,14 @@ export default {
     },
     goToCart(){
       this.$router.push('/cart');
+    },
+    toSearch: function () {
+      if(this.radio === '1'){
+        this.$router.push('/searchProduct/'+this.input);
+      }
+      else if(this.radio === '2'){
+        this.$router.push('/searchShop');
+      }
     }
   }
 }

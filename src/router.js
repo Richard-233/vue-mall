@@ -12,6 +12,7 @@ import OrderPay from './pages/orderPay'
 import Alipay from './pages/alipay'
 import Login from './pages/login'
 import ProductList from './pages/productList'
+import searchProduct from "./pages/searchProduct";
 
 Vue.use(Router);
 
@@ -39,6 +40,10 @@ export default new Router({
                     path: '/productList',
                     name: 'productList',
                     component: ProductList,
+                }, {
+                    path: '/searchProduct/:input',
+                    name: 'searchProduct',
+                    component: searchProduct,
                 }
             ]
         },{

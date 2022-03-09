@@ -23,7 +23,8 @@ export default {
       this.axios.get('/api/user/loginUserInfo').then((res)=>{
         this.$store.dispatch('saveUserInfo', {
           nickname:res.nickname,
-          image:res.image
+          image:res.image,
+          id:res.id
         });
       })
     },
