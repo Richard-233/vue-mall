@@ -7,7 +7,9 @@ Vue.use(Vuex);
 
 const state = {
     nickname: '',
-    user_image: ''
+    user_image: '',
+    user_id: ''
+
 }
 export default new Vuex.Store({
     state,

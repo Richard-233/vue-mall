@@ -63,10 +63,10 @@
           <div class="wrapper">
             <div class="list-box">
               <div class="list" v-for="(arr,i) in itemList" v-bind:key="i">
-                <div class="item" v-for="(item,j) in arr" v-bind:key="j">
+                <div class="item" v-for="(item,j) in arr" v-bind:key="j" @click="checkProduct(item.id)">
                   <span v-bind:class="{'new-pro':j%2===0}">新品</span>
                   <div class="item-img">
-                    <img v-lazy="item.image" alt="">
+                    <img v-lazy="item.image" alt="" >
                   </div>
                   <div class="item-info">
                     <h3>{{item.name}}</h3>
@@ -186,6 +186,9 @@ export default {
       }).then((res) => {
         this.itemList=[res.list.slice(0,5),res.list.slice(5,10),res.list.slice(10,15),res.list.slice(15,20),res.list.slice(20,25),res.list.slice(25,30),res.list.slice(30,35),res.list.slice(35,40),res.list.slice(40,45),res.list.slice(45,50),res.list.slice(50,55),res.list.slice(55,60),res.list.slice(60,65),res.list.slice(65,70),res.list.slice(70,75),res.list.slice(75,80)]
       })
+    },
+    checkProduct: function (id) {
+      this.$router.push('/detail/'+id);
     }
   }
 }
@@ -341,6 +344,7 @@ export default {
             background-color: #ffffff;
             text-align: center;
             margin-left: 10px;
+            cursor: pointer;
             span{
               display:inline-block;
               width:67px;
