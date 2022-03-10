@@ -1,5 +1,6 @@
 .DS_Store
 node_modules
+public/imgs/banner-1.gif
 /dist
 
 # local env files
