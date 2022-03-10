@@ -14,7 +14,7 @@
             <li class="col-1">单价</li>
             <li class="col-2">数量</li>
             <li class="col-1">小计</li>
-            <li class="col-1">操作</li>
+<!--            <li class="col-1">操作</li>-->
           </ul>
           <ul class="cart-item-list">
             <li class="cart-shop" v-for="(shop,index1) in list" v-bind:key="index1">
@@ -180,7 +180,20 @@
       },
       // 购物车下单
       order(){
-        let isCheck = this.list.every(item=>!item.productSelected);
+        let isCheck = this.list.every(item=>{
+          if(item.shopSelectedAll){
+            return false
+          }
+          else {
+            return  item.shopCartInfoList.every(cart=>{
+              if(cart.selected){
+                return false
+              }
+              return true
+            })
+          }
+
+        });
         if(isCheck){
           this.$message.warning('请选择一件商品');
         }else{
@@ -191,6 +204,9 @@
   }
 </script>
 <style lang="scss">
+  .h2{
+    margin-left: 10px;
+  }
   .cart{
     .wrapper{
       background-color:#F5F5F5;
@@ -210,7 +226,7 @@
           margin-right: 17px;
           cursor:pointer;
           &.checked{
-            background:url('/imgs/icon-gou.png') #FF6600 no-repeat center;
+            background:url('/imgs/icon-gou.png') #e4291e no-repeat center;
             background-size:16px 12px;
             border:none;
           }
@@ -233,7 +249,20 @@
           .cart-shop{
             .shop{
               display: flex;
-              background-color: #bb2424;
+              background-color: #f2f2f2;
+              height:45px;
+              border-bottom: 2px solid #e4291e;
+              align-items: center;
+              .checkbox{
+                margin-left: 56px;
+                width: 22px;
+                height: 22px;
+              }
+              span{
+                font-size: 16px;
+                font-weight: bold;
+                color: #e4291e;
+              }
             }
           }
           .cart-item{
@@ -258,6 +287,8 @@
               }
               span{
                 margin-left: 30px;
+                text-align: center;
+                width: 248px;
               }
             }
             .item-price{
@@ -287,7 +318,7 @@
             }
             .item-total{
               flex:1;
-              color:#FF6600;
+              color:#e4291e;
             }
             .item-del{
               flex:1;
@@ -313,13 +344,13 @@
             margin-right:37px;
           }
           span{
-            color:#FF6600;
+            color:#e4291e;
             margin:0 5px;
           }
         }
         .total{
           font-size:14px;
-          color:#FF6600;
+          color:#e4291e;
           span{
             font-size:24px;
           }
