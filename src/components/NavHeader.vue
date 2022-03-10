@@ -9,10 +9,12 @@
           <a href="javascript:">协议规则</a>
         </div>
         <div class="topbar-user">
-          <a href="javascript:" v-if="user_nickname">
+          <a href="javascript:" v-if="user_nickname" @click="goToUserInfo">
+            <a href="javascript:" >
             <img v-lazy="user_image" alt="" style="width: 25px;height: 25px;vertical-align: middle;">
           </a>
-          <a href="javascript:" v-if="user_nickname">{{user_nickname}}</a>
+            <a href="javascript:">{{user_nickname}}</a>
+          </a>
           <a href="javascript:" v-if="!user_nickname" @click="login">登录/注册</a>
           <a href="javascript:" v-if="user_nickname" @click="myOrder">我的订单</a>
           <a href="javascript:" class="my-cart" @click="goToCart"><span class="icon-cart"></span> 购物车</a>

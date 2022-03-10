@@ -184,7 +184,16 @@ export default {
           pageSize: 80
         }
       }).then((res) => {
-        this.itemList=[res.list.slice(0,5),res.list.slice(5,10),res.list.slice(10,15),res.list.slice(15,20),res.list.slice(20,25),res.list.slice(25,30),res.list.slice(30,35),res.list.slice(35,40),res.list.slice(40,45),res.list.slice(45,50),res.list.slice(50,55),res.list.slice(55,60),res.list.slice(60,65),res.list.slice(65,70),res.list.slice(70,75),res.list.slice(75,80)]
+        let size = res.list.length
+        let foot = size % 5
+        for(let i=0;i<size;i=i+5){
+          if(i+5>size){
+            this.itemList.push(res.list.slice(i,i+foot))
+          }
+          else{
+            this.itemList.push(res.list.slice(i,i+5))
+          }
+        }
       })
     },
     checkProduct: function (id) {
@@ -316,7 +325,7 @@ export default {
 
   .product-box {
     padding: 30px 0 50px;
-
+    margin-left: 0px;
     h2 {
       font-size: 22px;
       height: 21px;
@@ -356,7 +365,7 @@ export default {
                 background-color:#7ECF68;
               }
               &.kill-pro{
-                background-color:#E82626;
+                background-color:#E4291E;
               }
             }
             .item-img {
