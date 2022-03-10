@@ -1,5 +1,5 @@
 <template>
-  <div class="product-box">
+  <div class="product-box-list">
     <h2>你可能想找？</h2>
     <div class="wrapper">
       <div class="list-box">
@@ -30,24 +30,21 @@ export default {
     }
   },
   mounted() {
-    this.searchP()
+    this.searchProduct()
   },
   methods: {
-    searchP: function () {
+    searchProduct: function () {
       this.axios.get('/api/product/name?name='+this.input).then((res)=>{
-        // let length = res.list.length
-        // let foot = length % 5
-        // for(let i=0;i<length;i=i+5){
-        //   if(i+5>length){
-        //     this.itemList.add(res.slice(i,i+foot))
-        //   }
-        //   else{
-        //     this.itemList.add(res.slice(i,i+5))
-        //   }
-        // }
-        // console.log(res)
-        this.itemList=[res.slice(0,5),res.slice(5,10),res.slice(10,15),res.slice(15,20),res.slice(20,25),res.slice(25,30),res.slice(30,35),res.slice(35,40),res.slice(40,45),res.slice(45,50),res.slice(50,55),res.slice(55,60),res.slice(60,65),res.slice(65,70),res.slice(70,75),res.slice(75,80)]
-        // console.log(this.itemList)
+        let size = res.length
+        let foot = size % 5
+        for(let i=0;i<size;i=i+5){
+          if(i+5>size){
+            this.itemList.push(res.slice(i,i+foot))
+          }
+          else{
+            this.itemList.push(res.slice(i,i+5))
+          }
+        }
       })
     },
     checkProduct: function (id) {
@@ -60,10 +57,12 @@ export default {
 <style lang="scss">
 @import './../assets/scss/mixin.scss';
 
-.product-box {
+.product-box-list {
   padding: 30px 0 50px;
+  position: relative;
   width: 1226px;
-  margin-left: 231px;
+  margin-right: auto;
+  margin-left: auto;
 
 h2 {
   font-size: 22px;
@@ -104,7 +103,7 @@ span{
    background-color:#7ECF68;
  }
 &.kill-pro{
-   background-color:#E82626;
+   background-color:#E4291E;
  }
 }
 .item-img {
