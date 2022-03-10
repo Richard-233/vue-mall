@@ -14,7 +14,7 @@
           </a>
           <a href="javascript:" v-if="user_nickname">{{user_nickname}}</a>
           <a href="javascript:" v-if="!user_nickname" @click="login">登录/注册</a>
-          <a href="javascript:" v-if="user_nickname">我的订单</a>
+          <a href="javascript:" v-if="user_nickname" @click="myOrder">我的订单</a>
           <a href="javascript:" class="my-cart" @click="goToCart"><span class="icon-cart"></span> 购物车</a>
         </div>
       </div>
@@ -94,6 +94,9 @@ export default {
         this.$router.push('/searchShop/'+this.input);
         this.$router.go(0);
       }
+    },
+    myOrder: function () {
+      this.$router.push('/userOrderList');
     }
   }
 }

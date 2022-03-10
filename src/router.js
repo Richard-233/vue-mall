@@ -14,6 +14,7 @@ import Login from './pages/login'
 import ProductList from './pages/productList'
 import searchProduct from "./pages/searchProduct";
 import userOrderList from "./pages/userOrderList";
+import shopOrderList from "./pages/shopOrderList";
 import searchShop from "./pages/searchShop";
 import sellerLogin from "./pages/sellerLogin";
 
@@ -47,10 +48,6 @@ export default new Router({
                     path: '/searchProduct/:input',
                     name: 'searchProduct',
                     component: searchProduct,
-                }, {
-                    path: '/userOrderList',
-                    name: 'userOrderList',
-                    component: userOrderList,
                 }, {
                     path: '/searchShop/:input',
                     name: 'searchShop',
@@ -90,6 +87,14 @@ export default new Router({
                     path: 'alipay',
                     name: 'alipay',
                     component: Alipay
+                }, {
+                    path: '/userOrderList',
+                    name: 'userOrderList',
+                    component: userOrderList,
+                }, {
+                    path: '/shopOrderList',
+                    name: 'shopOrderList',
+                    component: shopOrderList,
                 }
             ]
         }
