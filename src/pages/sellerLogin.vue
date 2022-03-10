@@ -7,7 +7,7 @@
       <div class="container">
         <div class="login-form">
           <el-tabs class="el-tab" v-model="activeName" :stretch="true">
-            <el-tab-pane class="tab-pane" label="登录" name="first">
+            <el-tab-pane class="tab-pane" label="卖家登录" name="first">
               <div class="input">
                 <el-input v-model="username" placeholder="请输入用户名"></el-input>
               </div>
@@ -16,30 +16,29 @@
               </div>
               <div class="btn-box">
                 <a href="javascript:;" class="btn" @click="login">登录
-<!--                  <el-button type="danger" round @click="login">登录</el-button>-->
+                  <!--                  <el-button type="danger" round @click="login">登录</el-button>-->
                 </a>
               </div>
               <div class="tips">
-                <div class="sms" @click="sellerLogin">卖家登录入口</div>
                 <div class="reg">忘记密码？</div>
               </div>
             </el-tab-pane>
-            <el-tab-pane class="tab-pane" label="注册" name="second">
-              <div class="input">
-                <el-input v-model="username" placeholder="请输入用户名" type="text"></el-input>
-<!--                <input type="text" placeholder="请输入帐号" v-model="username">-->
-              </div>
-              <div class="input">
-                <el-input v-model="password" placeholder="请输入密码" type="text"></el-input>
-<!--                <input type="password" placeholder="请输入密码" v-model="password">-->
-              </div>
-              <div class="btn-box">
-                <a href="javascript:;" class="btn" @click="register">注册</a>
-              </div>
-              <div class="tips">
-                <div class="sms">手机短信登录/注册</div>
-              </div>
-            </el-tab-pane>
+<!--            <el-tab-pane class="tab-pane" label="注册" name="second">-->
+<!--              <div class="input">-->
+<!--                <el-input v-model="username" placeholder="请输入用户名" type="text"></el-input>-->
+<!--                &lt;!&ndash;                <input type="text" placeholder="请输入帐号" v-model="username">&ndash;&gt;-->
+<!--              </div>-->
+<!--              <div class="input">-->
+<!--                <el-input v-model="password" placeholder="请输入密码" type="text"></el-input>-->
+<!--                &lt;!&ndash;                <input type="password" placeholder="请输入密码" v-model="password">&ndash;&gt;-->
+<!--              </div>-->
+<!--              <div class="btn-box">-->
+<!--                <a href="javascript:;" class="btn" @click="register">注册</a>-->
+<!--              </div>-->
+<!--              <div class="tips">-->
+<!--                <div class="sms">手机短信登录/注册</div>-->
+<!--              </div>-->
+<!--            </el-tab-pane>-->
           </el-tabs>
         </div>
       </div>
@@ -58,7 +57,7 @@
 <script>
 // import { mapActions } from 'vuex';
 export default {
-  name: 'login',
+  name: 'sellerLogin',
   data(){
     return {
       username:'',
@@ -73,27 +72,15 @@ export default {
     login(){
       this.user.username = this.username
       this.user.password = this.password
-      this.axios.post('/api/user/login',this.user).then((res)=>{
+      this.axios.post('/api/user/sellerLogin',this.user).then((res)=>{
         this.$cookie.set('userId',res.id,{expires:'1M'});
         this.$store.dispatch('saveUserInfo', {
           nickname:res.nickname,
           image:res.image
         });
-        this.$router.push('/index');
+        this.$router.push('/加一个跳转到管理员页面的接口');
       })
     },
-    // ...mapActions(['saveUserName']),
-    register(){
-      this.user.username = this.username
-      this.user.password = this.password
-      this.axios.post('/api/user/register',this.user).then(()=>{
-        this.$message.success('注册成功');
-        this.$router.push('/index');
-      })
-    },
-    sellerLogin(){
-      this.$router.push('/sellerLogin');
-    }
   }
 }
 </script>

@@ -14,6 +14,8 @@ import Login from './pages/login'
 import ProductList from './pages/productList'
 import searchProduct from "./pages/searchProduct";
 import userOrderList from "./pages/userOrderList";
+import searchShop from "./pages/searchShop";
+import sellerLogin from "./pages/sellerLogin";
 
 Vue.use(Router);
 
@@ -49,6 +51,10 @@ export default new Router({
                     path: '/userOrderList',
                     name: 'userOrderList',
                     component: userOrderList,
+                }, {
+                    path: '/searchShop/:input',
+                    name: 'searchShop',
+                    component: searchShop,
                 }
             ]
         },{
@@ -60,6 +66,10 @@ export default new Router({
             name: 'cart',
             component: Cart,
         }, {
+            path: '/sellerLogin',
+            name: 'sellerLogin',
+            component: sellerLogin,
+        },{
             path: '/order',
             name: 'order',
             component: Order,
