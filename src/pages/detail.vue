@@ -104,7 +104,13 @@ export default{
       this.cart.userId = this.user_id
       this.cart.quantity = this.num
       console.log(this.cart)
-      this.axios.post('/api/cart/addToCart',this.cart)
+      this.axios.post('/api/cart/addToCart',this.cart).then(()=>{
+        this.$message({
+          showClose: true,
+          message: '添加成功',
+          type: 'success'
+        })
+      })
     }
   }
 }
