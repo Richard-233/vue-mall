@@ -57,7 +57,75 @@ export default new Router({
                     component: searchShop,
                 }
             ]
-        },{
+        },
+        {
+            path: '/shopMain',
+            name: 'shopMain',
+            component: () =>
+                import(/* webpackChunkName: "Main" */ './pages/shopMain'),
+            children: [
+                {
+                    path: '/ProductManagement',
+                    name: 'ProductManagement',
+                    component: () =>
+                        import(
+                            /* webpackChunkName: "Second" */ './pages/ProductManagement'
+                            )
+                },
+                {
+                    path: '/toEditProduct',
+                    name: 'toEditProduct',
+                    component: () =>
+                        import(
+                            /* webpackChunkName: "Second" */ './pages/toEditProduct'
+                            )
+                },
+                {
+                    path: '/toAddNewProduct',
+                    name: 'toAddNewProduct',
+                    component: () =>
+                        import(
+                            /* webpackChunkName: "Second" */ './pages/toAddNewProduct'
+                            )
+                },
+                {
+                    path: '/communicator',
+                    name: 'communicator',
+                    component: () =>
+                        import(
+                            /* webpackChunkName: "Second" */ './pages/communicator'
+                            )
+                },
+                {
+                    path: '/ShopManagement',
+                    name: 'ShopManagement',
+                    component: () =>
+                        import(
+                            /* webpackChunkName: "Second" */ './pages/ShopManagement'
+                            )
+                },
+                {
+                    path: '/toEditShop',
+                    name: 'toEditShop',
+                    component: () =>
+                        import(
+                            /* webpackChunkName: "Second" */ './pages/toEditShop'
+                            )
+                },
+                {
+                    path: '/toAddNewShop',
+                    name: 'toAddNewShop',
+                    component: () =>
+                        import(
+                            /* webpackChunkName: "Second" */ './pages/toAddNewShop'
+                            )
+                }
+            ]
+        },
+
+
+
+        {
             path:'/login',
             name:'login',
             component: Login,
