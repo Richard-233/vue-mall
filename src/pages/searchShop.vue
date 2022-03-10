@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  name: "searchProduct",
+  name: "searchShop",
   data(){
     return {
       input: this.$route.params.input,
@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     searchP: function () {
-      this.axios.get('/api/product/name?name='+this.input).then((res)=>{
+      this.axios.get('/api/shop/name?name='+this.input).then((res)=>{
         // let length = res.list.length
         // let foot = length % 5
         // for(let i=0;i<length;i=i+5){

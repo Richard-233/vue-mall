@@ -34,7 +34,7 @@
               <el-radio v-model="radio" label="2" style="margin-top:4px;">店铺</el-radio>
             </div>
             <el-input name="keyword"
-                placeholder="新鲜水果"
+                 :placeholder="holder"
                 v-model="input">
             </el-input>
             <el-button type="primary" icon="el-icon-search" href="javascript:;" size="medium" round @click="toSearch">搜索</el-button>
@@ -49,8 +49,9 @@ export default {
   name: 'nav-header',
   data(){
     return{
+      holder:'',
       productList:[],
-      input:'',
+      input:this.$route.params.input,
       radio:'1'
     }
   },
@@ -63,7 +64,17 @@ export default {
     }
   },
   mounted(){
-
+    this.radio=this.$cookie.get("radio")
+  },
+  watch:{
+    radio: function () {
+      if (this.radio==='1'){
+        this.holder='新鲜水果'
+      }
+      else{
+        this.holder='上程数据'
+      }
+    }
   },
   methods:{
     login(){
@@ -74,10 +85,14 @@ export default {
     },
     toSearch: function () {
       if(this.radio === '1'){
+        this.$cookie.set("radio",this.radio,{expires:'1H'});
         this.$router.push('/searchProduct/'+this.input);
+        this.$router.go(0);
       }
       else if(this.radio === '2'){
-        this.$router.push('/searchShop');
+        this.$cookie.set("radio",this.radio,{expires:'1H'});
+        this.$router.push('/searchShop/'+this.input);
+        this.$router.go(0);
       }
     }
   }

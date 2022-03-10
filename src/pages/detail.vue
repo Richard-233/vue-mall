@@ -115,6 +115,7 @@ export default{
 .detail{
   .wrapper{
     .swiper{
+      --swiper-theme-color: #e4291e;
       float:left;
       width:642px;
       height:617px;
