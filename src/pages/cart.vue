@@ -113,13 +113,18 @@
         }
       }
     },
+    computed:{
+      user_id(){
+        return this.$store.state.user_id;
+      }
+    },
     mounted(){
       this.getCartList();
     },
     methods:{
       // 获取购物车列表
       getCartList: function () {
-        this.axios.get('/api/cart/searchCart?userId=1').then(res => {
+        this.axios.get('/api/cart/searchCart?userId='+this.user_id).then(res => {
           // console.log(res.selectedAll)
           this.list = res.cartInfoList
           this.allChecked = res.selectedAll
@@ -166,7 +171,7 @@
       // 控制全选功能
       toggleAll: function (){
         let url = this.allChecked?'api/cart/unSelectAll':'api/cart/selectAll';
-        this.axios.get(url+'?userId=1').then(()=>{
+        this.axios.get(url+'?userId='+this.user_id).then(()=>{
           this.getCartList()
         })
       },
@@ -174,7 +179,7 @@
       selectShopAll: function (shop){
         // console.log(shop.shopSelectedAll)
         let url = shop.shopSelectedAll?'api/cart/unSelectShopAll':'api/cart/selectShopAll';
-        this.axios.get(url+'?userId=1&shopId='+shop.shopId).then(()=>{
+        this.axios.get(url+'?userId='+this.user_id+'&shopId='+shop.shopId).then(()=>{
           this.getCartList()
         })
       },
