@@ -42,7 +42,7 @@
 
       <el-table-column label="商品图片">
         <template slot-scope="scope">
-          <img :src="scope.row.image" width="60" height="60" class="head_pic"/>
+          <img :src="scope.row.image" width="60" height="60" />
         </template>
       </el-table-column>
 
@@ -148,6 +148,7 @@ export default {
         this.products = res.list;
         this.totals = res.total;
       })
+      // console.info(this.products)
     },
     deleteRow (index, row) {
       // console.info(row.id)
@@ -192,7 +193,7 @@ export default {
       let shopId = {id: this.inputId}
       this.pageNo = 1
       this.pSize = 1000
-      // console.info(this.inputId)
+      console.info(this.inputId)
       // console.info(999)
       this.axios.get('/api/product/id', {
         params: shopId
@@ -209,10 +210,12 @@ export default {
       let shopName = {name: this.inputName}
       this.pageNo = 1
       this.pSize = 1000
+      //console.info(shopName)
       this.axios.get('/api/product/name', {
         params: shopName
       }).then((res)=>{
         this.products = res;
+        //console.info(this.products)
       })
 
       // _getProductsByName(shopName).then(res => {

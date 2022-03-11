@@ -185,7 +185,7 @@ export default {
         status: this.form.status,
         createTime: '',
         updateTime: ''}
-      console.info(newProduct)
+      //console.info(newProduct)
       // _addNewProduct(newProduct).then(() => {
       //   this.refuse()
       // })
@@ -201,8 +201,9 @@ export default {
     refuse () {
       this.$router.push({path: 'ProductManagement'})
     },
-    handleAvatarSuccess (res, file) {
-      this.src = URL.createObjectURL(file.raw)
+    handleAvatarSuccess (res) {
+      //this.src = URL.createObjectURL(file.raw)
+      this.src=res.data
     },
     beforeAvatarUpload (file) {
       const isJPG = file.type === 'image/jpeg'

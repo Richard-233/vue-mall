@@ -13,13 +13,13 @@
 <!--      <el-form-item label="商品图片">-->
 <!--        <el-input v-model="form.image"></el-input>-->
 <!--      </el-form-item>-->
-      <el-form-item label="商铺图片">
+      <el-form-item label="商品图片">
 
           <img :src="src" width="60" height="60" class="head_pic"/>
 
       </el-form-item>
 
-      <el-form-item label="上传商铺图片">
+      <el-form-item label="上传商品图片">
         <el-upload
                 class="avatar-uploader"
                 action="/api/api/product/upload/file"
@@ -30,10 +30,10 @@
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
+
       <el-form-item label="商品详情">
         <el-input v-model="form.detail"></el-input>
       </el-form-item>
-
       <el-form-item label="商品目录">
         <el-select v-model="form.catalogId" placeholder="请选择商品种类">
           <el-option label="服饰" value="1"></el-option>
@@ -173,6 +173,10 @@ export default {
       // console.info(this.form.id)
       // console.info(this.form.status)
       // console.log('submit!')
+      //console.info(this.src)
+      // this.src=this.src.slice(27)
+      // this.src='http://localhost:3366/images/'+this.src
+      //console.info(this.src)
       let newProduct = { id: this.form.id,
         name: this.form.name,
         shopId: this.form.shopId,
@@ -184,6 +188,7 @@ export default {
         status: this.form.status,
         createTime: '',
         updateTime: ''}
+
       this.axios.get('/api/product/update', {
         params: newProduct
       }).then(
@@ -204,8 +209,11 @@ export default {
     refuse () {
       this.$router.push( 'ProductManagement')
     },
-    handleAvatarSuccess (res, file) {
-      this.src = URL.createObjectURL(file.raw)
+    handleAvatarSuccess (res) {
+     // console.info(res)
+      this.src=res.data
+      //this.src = URL.createObjectURL(file.raw)
+
     },
     beforeAvatarUpload (file) {
       const isJPG = file.type === 'image/jpeg'
