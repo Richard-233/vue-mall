@@ -2,8 +2,7 @@
     <el-tabs v-model="activeName" @tab-click="handleClick" class="tab">
       <el-tab-pane label="全部订单" name="0">
         <el-table v-bind:data="orderList" :default-expand-all="true" class="parentTable"
-                  ref="multipleTable"
-                  height="678">
+                  ref="multipleTable">
           <el-table-column type="expand">
             <template slot-scope="props">
               <div class="conWrap" style="text-align: left;line-height: 16px;font-size: 14px;position: relative;top: -10px;">
@@ -82,8 +81,7 @@
       </el-tab-pane>
       <el-tab-pane label="待发货" name="1">
         <el-table v-bind:data="orderList" :default-expand-all="true" class="parentTable"
-                  ref="multipleTable"
-                  height="678">
+                  ref="multipleTable" >
           <el-table-column type="expand">
             <template slot-scope="props">
               <div class="conWrap" style="text-align: left;line-height: 16px;font-size: 14px;position: relative;top: -10px;">
@@ -162,8 +160,7 @@
       </el-tab-pane>
       <el-tab-pane label="待收货" name="2">
         <el-table v-bind:data="orderList" :default-expand-all="true" class="parentTable"
-                  ref="multipleTable"
-                  height="678">
+                  ref="multipleTable" >
           <el-table-column type="expand">
             <template slot-scope="props">
               <div class="conWrap" style="text-align: left;line-height: 16px;font-size: 14px;position: relative;top: -10px;">
@@ -242,8 +239,7 @@
       </el-tab-pane>
       <el-tab-pane label="待评分" name="3">
         <el-table v-bind:data="orderList" :default-expand-all="true" class="parentTable"
-                  ref="multipleTable"
-                  height="678">
+                  ref="multipleTable" >
           <el-table-column type="expand">
             <template slot-scope="props">
               <div class="conWrap" style="text-align: left;line-height: 16px;font-size: 14px;position: relative;top: -10px;">
@@ -322,8 +318,7 @@
       </el-tab-pane>
       <el-tab-pane label="已完成" name="4">
         <el-table v-bind:data="orderList" :default-expand-all="true" class="parentTable"
-                  ref="multipleTable"
-                  height="678">
+                  ref="multipleTable" >
           <el-table-column type="expand">
             <template slot-scope="props">
               <div class="conWrap" style="text-align: left;line-height: 16px;font-size: 14px;position: relative;top: -10px;">
@@ -402,8 +397,7 @@
       </el-tab-pane>
       <el-tab-pane label="待退款" name="5">
         <el-table v-bind:data="orderList" :default-expand-all="true" class="parentTable"
-                  ref="multipleTable"
-                  height="678">
+                  ref="multipleTable" >
           <el-table-column type="expand">
             <template slot-scope="props">
               <div class="conWrap" style="text-align: left;line-height: 16px;font-size: 14px;position: relative;top: -10px;">
@@ -482,8 +476,7 @@
       </el-tab-pane>
       <el-tab-pane label="已退款" name="7">
         <el-table v-bind:data="orderList" :default-expand-all="true" class="parentTable"
-                  ref="multipleTable"
-                  height="678">
+                  ref="multipleTable" >
           <el-table-column type="expand">
             <template slot-scope="props">
               <div class="conWrap" style="text-align: left;line-height: 16px;font-size: 14px;position: relative;top: -10px;">
@@ -698,6 +691,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.tab{
+  padding: 30px 0 50px;
+  position: relative;
+  width: 1226px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .el-tabs__nav-scroll{
   width: 1226px;
   text-align: -webkit-center;

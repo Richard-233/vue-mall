@@ -173,7 +173,8 @@ export default {
           img: '/imgs/ads/ads-4.png'
         }
       ],
-      itemList: []
+      itemList: [],
+      catalogList:[]
     }
   },
   methods: {
@@ -198,6 +199,11 @@ export default {
     },
     checkProduct: function (id) {
       this.$router.push('/detail/'+id);
+    },
+    getCatalog:function(){
+      this.axios.post('/api/catalog/custom/list').then((res1)=>{
+        this.catalogList=res1
+      })
     }
   }
 }
