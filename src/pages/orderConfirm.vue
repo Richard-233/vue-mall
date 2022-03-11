@@ -9,12 +9,12 @@
       <div class="container">
         <div class="order-box">
           <div>
-            <el-select v-model="value" placeholder="请选择收货地址">
+            <el-select v-model="value" placeholder="请选择收货地址" style="width: 400px">
               <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
+                  v-for="item in addressList"
+                  :key="item.id"
+                  :label="'地址:'+item.receiverAddress + '             收货人:' + item.receiverName + '             电话:' + item.receiverMobile"
+                  :value="item.id">
               </el-option>
             </el-select>
           </div>
@@ -94,7 +94,8 @@ export default {
   name: 'order-confirm',
   data() {
     return {
-      list: [],//收货地址列表
+      value: '',
+      addressList: [],//收货地址列表
       cartList: [],//购物车中需要结算的商品列表
       cartTotalPrice: 0,//商品总金额
       count: 0,//商品结算数量
@@ -118,32 +119,48 @@ export default {
     // OrderHeader
     // Modal
   },
+  computed:{
+    user_id(){
+      return this.$store.state.user_id;
+    }
+  },
   mounted() {
-    // this.getAddressList();
+    this.getAddressList();
     this.getCartList();
   },
   methods: {
-    // getAddressList() {
-    //   this.axios.get('/shippings').then((res) => {
-    //     this.list = res.list;
-    //   })
-    // },
+    getAddressList() {
+      this.axios.get('/api/userAddress/getByUserId').then((res) => {
+        this.addressList = res;
+        for(let i=0;i<this.addressList.length;i++){
+          if(this.addressList[i].status===4){
+            this.value=this.addressList[i].id
+          }
+        }
+      })
+    },
     getCartList() {
-      this.axios.get('/api/cart/searchOrderConfirm?userId=1').then(res => {
+      this.axios.get('/api/cart/searchOrderConfirm?userId='+this.user_id).then(res => {
         // console.log(res.selectedAll)
         this.cartList = res.cartInfoList
-        console.log(this.cartList)
+        // console.log(this.cartList)
         this.cartTotalPrice = res.cartTotalPrice
         this.count = res.cartSelectedTotalQuantity
       })
     },
     // 订单提交
     orderSubmit() {
+      let item
+      for(let i=0;i<this.addressList.length;i++){
+        if(this.addressList[i].id===this.value){
+          item=this.addressList[i]
+        }
+      }
       // let item = this.list[this.checkIndex];
-      // if (!item) {
-      //   this.$message.error('请选择一个收货地址');
-      //   return;
-      // }
+      if (!item) {
+        this.$message.error('请选择一个收货地址');
+        return;
+      }
       this.$confirm('支付后提交订单', '提示', {
         confirmButtonText: '支付完成',
         cancelButtonText: '取消支付',
@@ -167,21 +184,21 @@ export default {
             this.orderInfo.productId = cart.productId
             this.orderInfo.postage = 0
             this.orderInfo.quantity = cart.quantity
-            // this.orderInfo.receiverName = item.receiverName
-            // this.orderInfo.receiverAddress = item.receiverAddress
-            // this.orderInfo.receiverMobile = item.receiverMobile
-            this.orderInfo.receiverName = 'yyy'
-            this.orderInfo.receiverAddress = 'ysr家'
-            this.orderInfo.receiverMobile = '15883406150'
+            this.orderInfo.receiverName = item.receiverName
+            this.orderInfo.receiverAddress = item.receiverAddress
+            this.orderInfo.receiverMobile = item.receiverMobile
+            // this.orderInfo.receiverName = 'yyy'
+            // this.orderInfo.receiverAddress = 'ysr家'
+            // this.orderInfo.receiverMobile = '15883406150'
             // console.log(this.orderInfo)
 
             this.orderInfoVO.orderInfoList[this.orderInfoVO.orderInfoList.length] = this.orderInfo
             // console.log(this.orderInfoList)
           }
         }
-        console.log(this.orderInfoVO.orderInfoList)
+        // console.log(this.orderInfoVO.orderInfoList)
 
-        // this.axios.post('/api/cart/createOrder',this.orderInfoVO)
+        this.axios.post('/api/cart/createOrder',this.orderInfoVO)
       }).catch(() => {
         this.$message({
           type: 'info',
