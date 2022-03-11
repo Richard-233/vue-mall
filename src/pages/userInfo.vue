@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <div class="menu">
-      <a href="javascript:">我的购物车</a>
-      <a href="javascript:">我的订单</a>
+      <a href="javascript:" @click="goToCart">我的购物车</a>
+      <a href="javascript:" @click="myOrder">我的订单</a>
       <a href="javascript:">我的收货地址</a>
       <a href="" v-if="user.role===1">我的店铺</a>
       <a href="" v-if="user.role===0">注册店铺</a>
@@ -70,6 +70,12 @@ export default {
         this.date=date1[0]
       })
     },
+    myOrder: function () {
+      this.$router.push('/userOrderList');
+    },
+    goToCart(){
+      this.$router.push('/cart');
+    },
     changeU(){
       this.dialogFormVisible = false
       let newUser={userNickname:this.form.name,userImage:this.src}
@@ -104,7 +110,7 @@ export default {
 .container {
   width: 1226px;
   position: relative;
-  margin: auto;
+  margin: 27px auto;
   display: flex;
   justify-content: center;
 

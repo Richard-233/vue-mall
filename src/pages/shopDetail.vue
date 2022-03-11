@@ -35,6 +35,7 @@
         <div class="list-box">
           <div class="list" v-for="(arr,i) in itemList" v-bind:key="i">
             <div class="item" v-for="(item,j) in arr" v-bind:key="j" @click="checkProduct(item.id)">
+              <span v-bind:class="{'kill-pro':item.status===2}">商家推荐</span>
               <div class="item-img">
                 <img v-lazy="item.image" alt="" >
               </div>
@@ -116,6 +117,9 @@ export default{
           }
         }
       })
+    },
+    checkProduct: function (id) {
+      this.$router.push('/detail/' + id);
     }
   }
 }
@@ -276,6 +280,8 @@ export default{
 
           &:last-child {
             margin-bottom: 0;
+            display: flex;
+            float: left;
           }
 
           .item {

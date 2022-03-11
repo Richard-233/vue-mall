@@ -1,48 +1,63 @@
 <template>
+  <div id="userOrderList">
     <el-tabs v-model="activeName" @tab-click="handleClick" class="tab">
-      <el-tab-pane label="全部订单" name="0">
+      <el-tab-pane class="tab1" label="全部订单" name="0">
         <el-table v-bind:data="orderList" :default-expand-all="true" class="parentTable"
                   ref="multipleTable">
           <el-table-column type="expand">
             <template slot-scope="props">
-              <div class="conWrap" style="text-align: left;line-height: 16px;font-size: 14px;position: relative;top: -10px;">
+              <div class="conWrap"
+                   style="text-align: left;line-height: 16px;font-size: 14px;position: relative;top: -10px;">
                 <el-popover trigger="hover" placement="top">
-                  <p>订单编号: {{props.row.orderId}}</p>
+                  <p>订单编号: {{ props.row.orderId }}</p>
                   <p>收货人姓名: {{ props.row.receiverName }}</p>
                   <p>收货人地址: {{ props.row.receiverAddress }}</p>
                   <p>收货人电话: {{ props.row.receiverMobile }}</p>
                   <div slot="reference" class="name-wrapper">
-                    <span>订单编号: {{props.row.orderId}}</span>
+                    <span>订单编号: {{ props.row.orderId }}</span>
                     <span style="margin-left:42px;" v-if="props.row.orderStatus===1">待发货</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===2">待收货</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===3">待评分</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===4">已完成</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===5 || props.row.orderStatus===6">退款申请中</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===7">已退款</span>
-                    <el-tag size="medium" class="name" style="margin-left:42px;">收货人姓名:{{ props.row.receiverName }}</el-tag>
-                    <el-button style="margin-left:42px;" v-if="props.row.orderStatus===2" type="text" size="small" v-on:click="confirmReceipt(props.row.orderId)">确认收货</el-button>
-                    <el-button style="margin-left:42px;" v-else-if="props.row.orderStatus===3" type="text" size="small" v-on:click="grade(props.row.orderId)">评分</el-button>
-                    <el-button style="margin-left:42px;" type="text" size="small" v-if="props.row.orderStatus!==4 && props.row.orderStatus!==5 && props.row.orderStatus!==6 && props.row.orderStatus!==7" v-on:click="refund(props.row.orderId)">申请退款</el-button>
+                    <el-tag size="medium" class="name" style="margin-left:42px;">收货人姓名:{{
+                        props.row.receiverName
+                      }}
+                    </el-tag>
+                    <el-button style="margin-left:42px;" v-if="props.row.orderStatus===2" type="text" size="small"
+                               v-on:click="confirmReceipt(props.row.orderId)">确认收货
+                    </el-button>
+                    <el-button style="margin-left:42px;" v-else-if="props.row.orderStatus===3" type="text" size="small"
+                               v-on:click="grade(props.row.orderId)">评分
+                    </el-button>
+                    <el-button style="margin-left:42px;" type="text" size="small"
+                               v-if="props.row.orderStatus!==4 && props.row.orderStatus!==5 && props.row.orderStatus!==6 && props.row.orderStatus!==7"
+                               v-on:click="refund(props.row.orderId)">申请退款
+                    </el-button>
                   </div>
                 </el-popover>
               </div>
-              <el-table v-bind:data="props.row.orderItemList" :default-expand-all="true" stripe :show-header="false" class="childTable">
+              <el-table v-bind:data="props.row.orderItemList" :default-expand-all="true" stripe :show-header="false"
+                        class="childTable">
                 <el-table-column prop="productName" align="center"
                                  label="商品名称"
                                  width="180">
                   <template slot-scope="scope">
-                    <div class="name-b">{{scope.row.productName}}</div>
+                    <div class="name-b">{{ scope.row.productName }}</div>
                   </template>
                 </el-table-column>
                 <el-table-column prop="productImg" align="center"
                                  label="商品图片"
                                  width="180">
                   <template slot-scope="scope">
-                    <div class="name-b"><el-image :src="scope.row.productImg">
-                      <div slot="placeholder" class="image-slot">
-                        加载中<span class="dot"></span>
-                      </div>
-                    </el-image></div>
+                    <div class="name-b">
+                      <el-image :src="scope.row.productImg">
+                        <div slot="placeholder" class="image-slot">
+                          加载中<span class="dot"></span>
+                        </div>
+                      </el-image>
+                    </div>
                   </template>
                 </el-table-column>
                 <el-table-column prop="price"
@@ -50,7 +65,7 @@
                                  align="center"
                                  width="250">
                   <template slot-scope="scope">
-                    <div class="name-b">{{scope.row.unitPrice/100}}</div>
+                    <div class="name-b">{{ scope.row.unitPrice / 100 }}</div>
                   </template>
                 </el-table-column>
                 <el-table-column prop="quantity"
@@ -58,7 +73,7 @@
                                  align="center"
                                  width="250">
                   <template slot-scope="scope">
-                    <div class="name-b">{{scope.row.quantity}}</div>
+                    <div class="name-b">{{ scope.row.quantity }}</div>
                   </template>
                 </el-table-column>
                 <el-table-column label="操作" width="162">
@@ -69,7 +84,9 @@
                   </template>
                 </el-table-column>
               </el-table>
-              <div style="text-align: left;line-height: 20px;font-size: 14px;position: center;top: -10px;">订单总价:{{props.row.orderTotalPrice/100}}</div>
+              <div style="text-align: left;line-height: 20px;font-size: 14px;position: center;top: -10px;">
+                订单总价:{{ props.row.orderTotalPrice / 100 }}
+              </div>
             </template>
           </el-table-column>
           <el-table-column label="商品名称" align="center" width="180"></el-table-column>
@@ -81,47 +98,61 @@
       </el-tab-pane>
       <el-tab-pane label="待发货" name="1">
         <el-table v-bind:data="orderList" :default-expand-all="true" class="parentTable"
-                  ref="multipleTable" >
+                  ref="multipleTable">
           <el-table-column type="expand">
             <template slot-scope="props">
-              <div class="conWrap" style="text-align: left;line-height: 16px;font-size: 14px;position: relative;top: -10px;">
+              <div class="conWrap"
+                   style="text-align: left;line-height: 16px;font-size: 14px;position: relative;top: -10px;">
                 <el-popover trigger="hover" placement="top">
-                  <p>订单编号: {{props.row.orderId}}</p>
+                  <p>订单编号: {{ props.row.orderId }}</p>
                   <p>收货人姓名: {{ props.row.receiverName }}</p>
                   <p>收货人地址: {{ props.row.receiverAddress }}</p>
                   <p>收货人电话: {{ props.row.receiverMobile }}</p>
                   <div slot="reference" class="name-wrapper">
-                    <span>订单编号: {{props.row.orderId}}</span>
+                    <span>订单编号: {{ props.row.orderId }}</span>
                     <span style="margin-left:42px;" v-if="props.row.orderStatus===1">待发货</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===2">待收货</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===3">待评分</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===4">已完成</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===5 || props.row.orderStatus===6">退款申请中</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===7">已退款</span>
-                    <el-tag size="medium" class="name" style="margin-left:42px;">收货人姓名:{{ props.row.receiverName }}</el-tag>
-                    <el-button style="margin-left:42px;" v-if="props.row.orderStatus===2" type="text" size="small" v-on:click="confirmReceipt(props.row.orderId)">确认收货</el-button>
-                    <el-button style="margin-left:42px;" v-else-if="props.row.orderStatus===3" type="text" size="small" v-on:click="grade(props.row.orderId)">评分</el-button>
-                    <el-button style="margin-left:42px;" type="text" size="small" v-if="props.row.orderStatus!==4 && props.row.orderStatus!==5 && props.row.orderStatus!==6 && props.row.orderStatus!==7" v-on:click="refund(props.row.orderId)">申请退款</el-button>
+                    <el-tag size="medium" class="name" style="margin-left:42px;">收货人姓名:{{
+                        props.row.receiverName
+                      }}
+                    </el-tag>
+                    <el-button style="margin-left:42px;" v-if="props.row.orderStatus===2" type="text" size="small"
+                               v-on:click="confirmReceipt(props.row.orderId)">确认收货
+                    </el-button>
+                    <el-button style="margin-left:42px;" v-else-if="props.row.orderStatus===3" type="text" size="small"
+                               v-on:click="grade(props.row.orderId)">评分
+                    </el-button>
+                    <el-button style="margin-left:42px;" type="text" size="small"
+                               v-if="props.row.orderStatus!==4 && props.row.orderStatus!==5 && props.row.orderStatus!==6 && props.row.orderStatus!==7"
+                               v-on:click="refund(props.row.orderId)">申请退款
+                    </el-button>
                   </div>
                 </el-popover>
               </div>
-              <el-table v-bind:data="props.row.orderItemList" :default-expand-all="true" stripe :show-header="false" class="childTable">
+              <el-table v-bind:data="props.row.orderItemList" :default-expand-all="true" stripe :show-header="false"
+                        class="childTable">
                 <el-table-column prop="productName" align="center"
                                  label="商品名称"
                                  width="180">
                   <template slot-scope="scope">
-                    <div class="name-b">{{scope.row.productName}}</div>
+                    <div class="name-b">{{ scope.row.productName }}</div>
                   </template>
                 </el-table-column>
                 <el-table-column prop="productImg" align="center"
                                  label="商品图片"
                                  width="180">
                   <template slot-scope="scope">
-                    <div class="name-b"><el-image :src="scope.row.productImg">
-                      <div slot="placeholder" class="image-slot">
-                        加载中<span class="dot"></span>
-                      </div>
-                    </el-image></div>
+                    <div class="name-b">
+                      <el-image :src="scope.row.productImg">
+                        <div slot="placeholder" class="image-slot">
+                          加载中<span class="dot"></span>
+                        </div>
+                      </el-image>
+                    </div>
                   </template>
                 </el-table-column>
                 <el-table-column prop="price"
@@ -129,7 +160,7 @@
                                  align="center"
                                  width="250">
                   <template slot-scope="scope">
-                    <div class="name-b">{{scope.row.unitPrice/100}}</div>
+                    <div class="name-b">{{ scope.row.unitPrice / 100 }}</div>
                   </template>
                 </el-table-column>
                 <el-table-column prop="quantity"
@@ -137,7 +168,7 @@
                                  align="center"
                                  width="250">
                   <template slot-scope="scope">
-                    <div class="name-b">{{scope.row.quantity}}</div>
+                    <div class="name-b">{{ scope.row.quantity }}</div>
                   </template>
                 </el-table-column>
                 <el-table-column label="操作" width="162">
@@ -148,7 +179,9 @@
                   </template>
                 </el-table-column>
               </el-table>
-              <div style="text-align: left;line-height: 20px;font-size: 14px;position: center;top: -10px;">订单总价:{{props.row.orderTotalPrice/100}}</div>
+              <div style="text-align: left;line-height: 20px;font-size: 14px;position: center;top: -10px;">
+                订单总价:{{ props.row.orderTotalPrice / 100 }}
+              </div>
             </template>
           </el-table-column>
           <el-table-column label="商品名称" align="center" width="180"></el-table-column>
@@ -160,47 +193,61 @@
       </el-tab-pane>
       <el-tab-pane label="待收货" name="2">
         <el-table v-bind:data="orderList" :default-expand-all="true" class="parentTable"
-                  ref="multipleTable" >
+                  ref="multipleTable">
           <el-table-column type="expand">
             <template slot-scope="props">
-              <div class="conWrap" style="text-align: left;line-height: 16px;font-size: 14px;position: relative;top: -10px;">
+              <div class="conWrap"
+                   style="text-align: left;line-height: 16px;font-size: 14px;position: relative;top: -10px;">
                 <el-popover trigger="hover" placement="top">
-                  <p>订单编号: {{props.row.orderId}}</p>
+                  <p>订单编号: {{ props.row.orderId }}</p>
                   <p>收货人姓名: {{ props.row.receiverName }}</p>
                   <p>收货人地址: {{ props.row.receiverAddress }}</p>
                   <p>收货人电话: {{ props.row.receiverMobile }}</p>
                   <div slot="reference" class="name-wrapper">
-                    <span>订单编号: {{props.row.orderId}}</span>
+                    <span>订单编号: {{ props.row.orderId }}</span>
                     <span style="margin-left:42px;" v-if="props.row.orderStatus===1">待发货</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===2">待收货</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===3">待评分</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===4">已完成</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===5 || props.row.orderStatus===6">退款申请中</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===7">已退款</span>
-                    <el-tag size="medium" class="name" style="margin-left:42px;">收货人姓名:{{ props.row.receiverName }}</el-tag>
-                    <el-button style="margin-left:42px;" v-if="props.row.orderStatus===2" type="text" size="small" v-on:click="confirmReceipt(props.row.orderId)">确认收货</el-button>
-                    <el-button style="margin-left:42px;" v-else-if="props.row.orderStatus===3" type="text" size="small" v-on:click="grade(props.row.orderId)">评分</el-button>
-                    <el-button style="margin-left:42px;" type="text" size="small" v-if="props.row.orderStatus!==4 && props.row.orderStatus!==5 && props.row.orderStatus!==6 && props.row.orderStatus!==7" v-on:click="refund(props.row.orderId)">申请退款</el-button>
+                    <el-tag size="medium" class="name" style="margin-left:42px;">收货人姓名:{{
+                        props.row.receiverName
+                      }}
+                    </el-tag>
+                    <el-button style="margin-left:42px;" v-if="props.row.orderStatus===2" type="text" size="small"
+                               v-on:click="confirmReceipt(props.row.orderId)">确认收货
+                    </el-button>
+                    <el-button style="margin-left:42px;" v-else-if="props.row.orderStatus===3" type="text" size="small"
+                               v-on:click="grade(props.row.orderId)">评分
+                    </el-button>
+                    <el-button style="margin-left:42px;" type="text" size="small"
+                               v-if="props.row.orderStatus!==4 && props.row.orderStatus!==5 && props.row.orderStatus!==6 && props.row.orderStatus!==7"
+                               v-on:click="refund(props.row.orderId)">申请退款
+                    </el-button>
                   </div>
                 </el-popover>
               </div>
-              <el-table v-bind:data="props.row.orderItemList" :default-expand-all="true" stripe :show-header="false" class="childTable">
+              <el-table v-bind:data="props.row.orderItemList" :default-expand-all="true" stripe :show-header="false"
+                        class="childTable">
                 <el-table-column prop="productName" align="center"
                                  label="商品名称"
                                  width="180">
                   <template slot-scope="scope">
-                    <div class="name-b">{{scope.row.productName}}</div>
+                    <div class="name-b">{{ scope.row.productName }}</div>
                   </template>
                 </el-table-column>
                 <el-table-column prop="productImg" align="center"
                                  label="商品图片"
                                  width="180">
                   <template slot-scope="scope">
-                    <div class="name-b"><el-image :src="scope.row.productImg">
-                      <div slot="placeholder" class="image-slot">
-                        加载中<span class="dot"></span>
-                      </div>
-                    </el-image></div>
+                    <div class="name-b">
+                      <el-image :src="scope.row.productImg">
+                        <div slot="placeholder" class="image-slot">
+                          加载中<span class="dot"></span>
+                        </div>
+                      </el-image>
+                    </div>
                   </template>
                 </el-table-column>
                 <el-table-column prop="price"
@@ -208,7 +255,7 @@
                                  align="center"
                                  width="250">
                   <template slot-scope="scope">
-                    <div class="name-b">{{scope.row.unitPrice/100}}</div>
+                    <div class="name-b">{{ scope.row.unitPrice / 100 }}</div>
                   </template>
                 </el-table-column>
                 <el-table-column prop="quantity"
@@ -216,7 +263,7 @@
                                  align="center"
                                  width="250">
                   <template slot-scope="scope">
-                    <div class="name-b">{{scope.row.quantity}}</div>
+                    <div class="name-b">{{ scope.row.quantity }}</div>
                   </template>
                 </el-table-column>
                 <el-table-column label="操作" width="162">
@@ -227,7 +274,9 @@
                   </template>
                 </el-table-column>
               </el-table>
-              <div style="text-align: left;line-height: 20px;font-size: 14px;position: center;top: -10px;">订单总价:{{props.row.orderTotalPrice/100}}</div>
+              <div style="text-align: left;line-height: 20px;font-size: 14px;position: center;top: -10px;">
+                订单总价:{{ props.row.orderTotalPrice / 100 }}
+              </div>
             </template>
           </el-table-column>
           <el-table-column label="商品名称" align="center" width="180"></el-table-column>
@@ -239,47 +288,61 @@
       </el-tab-pane>
       <el-tab-pane label="待评分" name="3">
         <el-table v-bind:data="orderList" :default-expand-all="true" class="parentTable"
-                  ref="multipleTable" >
+                  ref="multipleTable">
           <el-table-column type="expand">
             <template slot-scope="props">
-              <div class="conWrap" style="text-align: left;line-height: 16px;font-size: 14px;position: relative;top: -10px;">
+              <div class="conWrap"
+                   style="text-align: left;line-height: 16px;font-size: 14px;position: relative;top: -10px;">
                 <el-popover trigger="hover" placement="top">
-                  <p>订单编号: {{props.row.orderId}}</p>
+                  <p>订单编号: {{ props.row.orderId }}</p>
                   <p>收货人姓名: {{ props.row.receiverName }}</p>
                   <p>收货人地址: {{ props.row.receiverAddress }}</p>
                   <p>收货人电话: {{ props.row.receiverMobile }}</p>
                   <div slot="reference" class="name-wrapper">
-                    <span>订单编号: {{props.row.orderId}}</span>
+                    <span>订单编号: {{ props.row.orderId }}</span>
                     <span style="margin-left:42px;" v-if="props.row.orderStatus===1">待发货</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===2">待收货</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===3">待评分</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===4">已完成</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===5 || props.row.orderStatus===6">退款申请中</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===7">已退款</span>
-                    <el-tag size="medium" class="name" style="margin-left:42px;">收货人姓名:{{ props.row.receiverName }}</el-tag>
-                    <el-button style="margin-left:42px;" v-if="props.row.orderStatus===2" type="text" size="small" v-on:click="confirmReceipt(props.row.orderId)">确认收货</el-button>
-                    <el-button style="margin-left:42px;" v-else-if="props.row.orderStatus===3" type="text" size="small" v-on:click="grade(props.row.orderId)">评分</el-button>
-                    <el-button style="margin-left:42px;" type="text" size="small" v-if="props.row.orderStatus!==4 && props.row.orderStatus!==5 && props.row.orderStatus!==6 && props.row.orderStatus!==7" v-on:click="refund(props.row.orderId)">申请退款</el-button>
+                    <el-tag size="medium" class="name" style="margin-left:42px;">收货人姓名:{{
+                        props.row.receiverName
+                      }}
+                    </el-tag>
+                    <el-button style="margin-left:42px;" v-if="props.row.orderStatus===2" type="text" size="small"
+                               v-on:click="confirmReceipt(props.row.orderId)">确认收货
+                    </el-button>
+                    <el-button style="margin-left:42px;" v-else-if="props.row.orderStatus===3" type="text" size="small"
+                               v-on:click="grade(props.row.orderId)">评分
+                    </el-button>
+                    <el-button style="margin-left:42px;" type="text" size="small"
+                               v-if="props.row.orderStatus!==4 && props.row.orderStatus!==5 && props.row.orderStatus!==6 && props.row.orderStatus!==7"
+                               v-on:click="refund(props.row.orderId)">申请退款
+                    </el-button>
                   </div>
                 </el-popover>
               </div>
-              <el-table v-bind:data="props.row.orderItemList" :default-expand-all="true" stripe :show-header="false" class="childTable">
+              <el-table v-bind:data="props.row.orderItemList" :default-expand-all="true" stripe :show-header="false"
+                        class="childTable">
                 <el-table-column prop="productName" align="center"
                                  label="商品名称"
                                  width="180">
                   <template slot-scope="scope">
-                    <div class="name-b">{{scope.row.productName}}</div>
+                    <div class="name-b">{{ scope.row.productName }}</div>
                   </template>
                 </el-table-column>
                 <el-table-column prop="productImg" align="center"
                                  label="商品图片"
                                  width="180">
                   <template slot-scope="scope">
-                    <div class="name-b"><el-image :src="scope.row.productImg">
-                      <div slot="placeholder" class="image-slot">
-                        加载中<span class="dot"></span>
-                      </div>
-                    </el-image></div>
+                    <div class="name-b">
+                      <el-image :src="scope.row.productImg">
+                        <div slot="placeholder" class="image-slot">
+                          加载中<span class="dot"></span>
+                        </div>
+                      </el-image>
+                    </div>
                   </template>
                 </el-table-column>
                 <el-table-column prop="price"
@@ -287,7 +350,7 @@
                                  align="center"
                                  width="250">
                   <template slot-scope="scope">
-                    <div class="name-b">{{scope.row.unitPrice/100}}</div>
+                    <div class="name-b">{{ scope.row.unitPrice / 100 }}</div>
                   </template>
                 </el-table-column>
                 <el-table-column prop="quantity"
@@ -295,7 +358,7 @@
                                  align="center"
                                  width="250">
                   <template slot-scope="scope">
-                    <div class="name-b">{{scope.row.quantity}}</div>
+                    <div class="name-b">{{ scope.row.quantity }}</div>
                   </template>
                 </el-table-column>
                 <el-table-column label="操作" width="162">
@@ -306,7 +369,9 @@
                   </template>
                 </el-table-column>
               </el-table>
-              <div style="text-align: left;line-height: 20px;font-size: 14px;position: center;top: -10px;">订单总价:{{props.row.orderTotalPrice/100}}</div>
+              <div style="text-align: left;line-height: 20px;font-size: 14px;position: center;top: -10px;">
+                订单总价:{{ props.row.orderTotalPrice / 100 }}
+              </div>
             </template>
           </el-table-column>
           <el-table-column label="商品名称" align="center" width="180"></el-table-column>
@@ -318,47 +383,61 @@
       </el-tab-pane>
       <el-tab-pane label="已完成" name="4">
         <el-table v-bind:data="orderList" :default-expand-all="true" class="parentTable"
-                  ref="multipleTable" >
+                  ref="multipleTable">
           <el-table-column type="expand">
             <template slot-scope="props">
-              <div class="conWrap" style="text-align: left;line-height: 16px;font-size: 14px;position: relative;top: -10px;">
+              <div class="conWrap"
+                   style="text-align: left;line-height: 16px;font-size: 14px;position: relative;top: -10px;">
                 <el-popover trigger="hover" placement="top">
-                  <p>订单编号: {{props.row.orderId}}</p>
+                  <p>订单编号: {{ props.row.orderId }}</p>
                   <p>收货人姓名: {{ props.row.receiverName }}</p>
                   <p>收货人地址: {{ props.row.receiverAddress }}</p>
                   <p>收货人电话: {{ props.row.receiverMobile }}</p>
                   <div slot="reference" class="name-wrapper">
-                    <span>订单编号: {{props.row.orderId}}</span>
+                    <span>订单编号: {{ props.row.orderId }}</span>
                     <span style="margin-left:42px;" v-if="props.row.orderStatus===1">待发货</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===2">待收货</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===3">待评分</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===4">已完成</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===5 || props.row.orderStatus===6">退款申请中</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===7">已退款</span>
-                    <el-tag size="medium" class="name" style="margin-left:42px;">收货人姓名:{{ props.row.receiverName }}</el-tag>
-                    <el-button style="margin-left:42px;" v-if="props.row.orderStatus===2" type="text" size="small" v-on:click="confirmReceipt(props.row.orderId)">确认收货</el-button>
-                    <el-button style="margin-left:42px;" v-else-if="props.row.orderStatus===3" type="text" size="small" v-on:click="grade(props.row.orderId)">评分</el-button>
-                    <el-button style="margin-left:42px;" type="text" size="small" v-if="props.row.orderStatus!==4 && props.row.orderStatus!==5 && props.row.orderStatus!==6 && props.row.orderStatus!==7" v-on:click="refund(props.row.orderId)">申请退款</el-button>
+                    <el-tag size="medium" class="name" style="margin-left:42px;">收货人姓名:{{
+                        props.row.receiverName
+                      }}
+                    </el-tag>
+                    <el-button style="margin-left:42px;" v-if="props.row.orderStatus===2" type="text" size="small"
+                               v-on:click="confirmReceipt(props.row.orderId)">确认收货
+                    </el-button>
+                    <el-button style="margin-left:42px;" v-else-if="props.row.orderStatus===3" type="text" size="small"
+                               v-on:click="grade(props.row.orderId)">评分
+                    </el-button>
+                    <el-button style="margin-left:42px;" type="text" size="small"
+                               v-if="props.row.orderStatus!==4 && props.row.orderStatus!==5 && props.row.orderStatus!==6 && props.row.orderStatus!==7"
+                               v-on:click="refund(props.row.orderId)">申请退款
+                    </el-button>
                   </div>
                 </el-popover>
               </div>
-              <el-table v-bind:data="props.row.orderItemList" :default-expand-all="true" stripe :show-header="false" class="childTable">
+              <el-table v-bind:data="props.row.orderItemList" :default-expand-all="true" stripe :show-header="false"
+                        class="childTable">
                 <el-table-column prop="productName" align="center"
                                  label="商品名称"
                                  width="180">
                   <template slot-scope="scope">
-                    <div class="name-b">{{scope.row.productName}}</div>
+                    <div class="name-b">{{ scope.row.productName }}</div>
                   </template>
                 </el-table-column>
                 <el-table-column prop="productImg" align="center"
                                  label="商品图片"
                                  width="180">
                   <template slot-scope="scope">
-                    <div class="name-b"><el-image :src="scope.row.productImg">
-                      <div slot="placeholder" class="image-slot">
-                        加载中<span class="dot"></span>
-                      </div>
-                    </el-image></div>
+                    <div class="name-b">
+                      <el-image :src="scope.row.productImg">
+                        <div slot="placeholder" class="image-slot">
+                          加载中<span class="dot"></span>
+                        </div>
+                      </el-image>
+                    </div>
                   </template>
                 </el-table-column>
                 <el-table-column prop="price"
@@ -366,7 +445,7 @@
                                  align="center"
                                  width="250">
                   <template slot-scope="scope">
-                    <div class="name-b">{{scope.row.unitPrice/100}}</div>
+                    <div class="name-b">{{ scope.row.unitPrice / 100 }}</div>
                   </template>
                 </el-table-column>
                 <el-table-column prop="quantity"
@@ -374,7 +453,7 @@
                                  align="center"
                                  width="250">
                   <template slot-scope="scope">
-                    <div class="name-b">{{scope.row.quantity}}</div>
+                    <div class="name-b">{{ scope.row.quantity }}</div>
                   </template>
                 </el-table-column>
                 <el-table-column label="操作" width="162">
@@ -385,7 +464,9 @@
                   </template>
                 </el-table-column>
               </el-table>
-              <div style="text-align: left;line-height: 20px;font-size: 14px;position: center;top: -10px;">订单总价:{{props.row.orderTotalPrice/100}}</div>
+              <div style="text-align: left;line-height: 20px;font-size: 14px;position: center;top: -10px;">
+                订单总价:{{ props.row.orderTotalPrice / 100 }}
+              </div>
             </template>
           </el-table-column>
           <el-table-column label="商品名称" align="center" width="180"></el-table-column>
@@ -397,47 +478,61 @@
       </el-tab-pane>
       <el-tab-pane label="待退款" name="5">
         <el-table v-bind:data="orderList" :default-expand-all="true" class="parentTable"
-                  ref="multipleTable" >
+                  ref="multipleTable">
           <el-table-column type="expand">
             <template slot-scope="props">
-              <div class="conWrap" style="text-align: left;line-height: 16px;font-size: 14px;position: relative;top: -10px;">
+              <div class="conWrap"
+                   style="text-align: left;line-height: 16px;font-size: 14px;position: relative;top: -10px;">
                 <el-popover trigger="hover" placement="top">
-                  <p>订单编号: {{props.row.orderId}}</p>
+                  <p>订单编号: {{ props.row.orderId }}</p>
                   <p>收货人姓名: {{ props.row.receiverName }}</p>
                   <p>收货人地址: {{ props.row.receiverAddress }}</p>
                   <p>收货人电话: {{ props.row.receiverMobile }}</p>
                   <div slot="reference" class="name-wrapper">
-                    <span>订单编号: {{props.row.orderId}}</span>
+                    <span>订单编号: {{ props.row.orderId }}</span>
                     <span style="margin-left:42px;" v-if="props.row.orderStatus===1">待发货</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===2">待收货</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===3">待评分</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===4">已完成</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===5 || props.row.orderStatus===6">退款申请中</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===7">已退款</span>
-                    <el-tag size="medium" class="name" style="margin-left:42px;">收货人姓名:{{ props.row.receiverName }}</el-tag>
-                    <el-button style="margin-left:42px;" v-if="props.row.orderStatus===2" type="text" size="small" v-on:click="confirmReceipt(props.row.orderId)">确认收货</el-button>
-                    <el-button style="margin-left:42px;" v-else-if="props.row.orderStatus===3" type="text" size="small" v-on:click="grade(props.row.orderId)">评分</el-button>
-                    <el-button style="margin-left:42px;" type="text" size="small" v-if="props.row.orderStatus!==4 && props.row.orderStatus!==5 && props.row.orderStatus!==6 && props.row.orderStatus!==7" v-on:click="refund(props.row.orderId)">申请退款</el-button>
+                    <el-tag size="medium" class="name" style="margin-left:42px;">收货人姓名:{{
+                        props.row.receiverName
+                      }}
+                    </el-tag>
+                    <el-button style="margin-left:42px;" v-if="props.row.orderStatus===2" type="text" size="small"
+                               v-on:click="confirmReceipt(props.row.orderId)">确认收货
+                    </el-button>
+                    <el-button style="margin-left:42px;" v-else-if="props.row.orderStatus===3" type="text" size="small"
+                               v-on:click="grade(props.row.orderId)">评分
+                    </el-button>
+                    <el-button style="margin-left:42px;" type="text" size="small"
+                               v-if="props.row.orderStatus!==4 && props.row.orderStatus!==5 && props.row.orderStatus!==6 && props.row.orderStatus!==7"
+                               v-on:click="refund(props.row.orderId)">申请退款
+                    </el-button>
                   </div>
                 </el-popover>
               </div>
-              <el-table v-bind:data="props.row.orderItemList" :default-expand-all="true" stripe :show-header="false" class="childTable">
+              <el-table v-bind:data="props.row.orderItemList" :default-expand-all="true" stripe :show-header="false"
+                        class="childTable">
                 <el-table-column prop="productName" align="center"
                                  label="商品名称"
                                  width="180">
                   <template slot-scope="scope">
-                    <div class="name-b">{{scope.row.productName}}</div>
+                    <div class="name-b">{{ scope.row.productName }}</div>
                   </template>
                 </el-table-column>
                 <el-table-column prop="productImg" align="center"
                                  label="商品图片"
                                  width="180">
                   <template slot-scope="scope">
-                    <div class="name-b"><el-image :src="scope.row.productImg">
-                      <div slot="placeholder" class="image-slot">
-                        加载中<span class="dot"></span>
-                      </div>
-                    </el-image></div>
+                    <div class="name-b">
+                      <el-image :src="scope.row.productImg">
+                        <div slot="placeholder" class="image-slot">
+                          加载中<span class="dot"></span>
+                        </div>
+                      </el-image>
+                    </div>
                   </template>
                 </el-table-column>
                 <el-table-column prop="price"
@@ -445,7 +540,7 @@
                                  align="center"
                                  width="250">
                   <template slot-scope="scope">
-                    <div class="name-b">{{scope.row.unitPrice/100}}</div>
+                    <div class="name-b">{{ scope.row.unitPrice / 100 }}</div>
                   </template>
                 </el-table-column>
                 <el-table-column prop="quantity"
@@ -453,7 +548,7 @@
                                  align="center"
                                  width="250">
                   <template slot-scope="scope">
-                    <div class="name-b">{{scope.row.quantity}}</div>
+                    <div class="name-b">{{ scope.row.quantity }}</div>
                   </template>
                 </el-table-column>
                 <el-table-column label="操作" width="162">
@@ -464,7 +559,9 @@
                   </template>
                 </el-table-column>
               </el-table>
-              <div style="text-align: left;line-height: 20px;font-size: 14px;position: center;top: -10px;">订单总价:{{props.row.orderTotalPrice/100}}</div>
+              <div style="text-align: left;line-height: 20px;font-size: 14px;position: center;top: -10px;">
+                订单总价:{{ props.row.orderTotalPrice / 100 }}
+              </div>
             </template>
           </el-table-column>
           <el-table-column label="商品名称" align="center" width="180"></el-table-column>
@@ -476,47 +573,61 @@
       </el-tab-pane>
       <el-tab-pane label="已退款" name="7">
         <el-table v-bind:data="orderList" :default-expand-all="true" class="parentTable"
-                  ref="multipleTable" >
+                  ref="multipleTable">
           <el-table-column type="expand">
             <template slot-scope="props">
-              <div class="conWrap" style="text-align: left;line-height: 16px;font-size: 14px;position: relative;top: -10px;">
+              <div class="conWrap"
+                   style="text-align: left;line-height: 16px;font-size: 14px;position: relative;top: -10px;">
                 <el-popover trigger="hover" placement="top">
-                  <p>订单编号: {{props.row.orderId}}</p>
+                  <p>订单编号: {{ props.row.orderId }}</p>
                   <p>收货人姓名: {{ props.row.receiverName }}</p>
                   <p>收货人地址: {{ props.row.receiverAddress }}</p>
                   <p>收货人电话: {{ props.row.receiverMobile }}</p>
                   <div slot="reference" class="name-wrapper">
-                    <span>订单编号: {{props.row.orderId}}</span>
+                    <span>订单编号: {{ props.row.orderId }}</span>
                     <span style="margin-left:42px;" v-if="props.row.orderStatus===1">待发货</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===2">待收货</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===3">待评分</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===4">已完成</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===5 || props.row.orderStatus===6">退款申请中</span>
                     <span style="margin-left:42px;" v-else-if="props.row.orderStatus===7">已退款</span>
-                    <el-tag size="medium" class="name" style="margin-left:42px;">收货人姓名:{{ props.row.receiverName }}</el-tag>
-                    <el-button style="margin-left:42px;" v-if="props.row.orderStatus===2" type="text" size="small" v-on:click="confirmReceipt(props.row.orderId)">确认收货</el-button>
-                    <el-button style="margin-left:42px;" v-else-if="props.row.orderStatus===3" type="text" size="small" v-on:click="grade(props.row.orderId)">评分</el-button>
-                    <el-button style="margin-left:42px;" type="text" size="small" v-if="props.row.orderStatus!==4 && props.row.orderStatus!==5 && props.row.orderStatus!==6 && props.row.orderStatus!==7" v-on:click="refund(props.row.orderId)">申请退款</el-button>
+                    <el-tag size="medium" class="name" style="margin-left:42px;">收货人姓名:{{
+                        props.row.receiverName
+                      }}
+                    </el-tag>
+                    <el-button style="margin-left:42px;" v-if="props.row.orderStatus===2" type="text" size="small"
+                               v-on:click="confirmReceipt(props.row.orderId)">确认收货
+                    </el-button>
+                    <el-button style="margin-left:42px;" v-else-if="props.row.orderStatus===3" type="text" size="small"
+                               v-on:click="grade(props.row.orderId)">评分
+                    </el-button>
+                    <el-button style="margin-left:42px;" type="text" size="small"
+                               v-if="props.row.orderStatus!==4 && props.row.orderStatus!==5 && props.row.orderStatus!==6 && props.row.orderStatus!==7"
+                               v-on:click="refund(props.row.orderId)">申请退款
+                    </el-button>
                   </div>
                 </el-popover>
               </div>
-              <el-table v-bind:data="props.row.orderItemList" :default-expand-all="true" stripe :show-header="false" class="childTable">
+              <el-table v-bind:data="props.row.orderItemList" :default-expand-all="true" stripe :show-header="false"
+                        class="childTable">
                 <el-table-column prop="productName" align="center"
                                  label="商品名称"
                                  width="180">
                   <template slot-scope="scope">
-                    <div class="name-b">{{scope.row.productName}}</div>
+                    <div class="name-b">{{ scope.row.productName }}</div>
                   </template>
                 </el-table-column>
                 <el-table-column prop="productImg" align="center"
                                  label="商品图片"
                                  width="180">
                   <template slot-scope="scope">
-                    <div class="name-b"><el-image :src="scope.row.productImg">
-                      <div slot="placeholder" class="image-slot">
-                        加载中<span class="dot"></span>
-                      </div>
-                    </el-image></div>
+                    <div class="name-b">
+                      <el-image :src="scope.row.productImg">
+                        <div slot="placeholder" class="image-slot">
+                          加载中<span class="dot"></span>
+                        </div>
+                      </el-image>
+                    </div>
                   </template>
                 </el-table-column>
                 <el-table-column prop="price"
@@ -524,7 +635,7 @@
                                  align="center"
                                  width="250">
                   <template slot-scope="scope">
-                    <div class="name-b">{{scope.row.unitPrice/100}}</div>
+                    <div class="name-b">{{ scope.row.unitPrice / 100 }}</div>
                   </template>
                 </el-table-column>
                 <el-table-column prop="quantity"
@@ -532,7 +643,7 @@
                                  align="center"
                                  width="250">
                   <template slot-scope="scope">
-                    <div class="name-b">{{scope.row.quantity}}</div>
+                    <div class="name-b">{{ scope.row.quantity }}</div>
                   </template>
                 </el-table-column>
                 <el-table-column label="操作" width="162">
@@ -543,7 +654,9 @@
                   </template>
                 </el-table-column>
               </el-table>
-              <div style="text-align: left;line-height: 20px;font-size: 14px;position: center;top: -10px;">订单总价:{{props.row.orderTotalPrice/100}}</div>
+              <div style="text-align: left;line-height: 20px;font-size: 14px;position: center;top: -10px;">
+                订单总价:{{ props.row.orderTotalPrice / 100 }}
+              </div>
             </template>
           </el-table-column>
           <el-table-column label="商品名称" align="center" width="180"></el-table-column>
@@ -554,6 +667,7 @@
         </el-table>
       </el-tab-pane>
     </el-tabs>
+  </div>
 </template>
 
 <script>
@@ -565,17 +679,17 @@ export default {
       activeName: '0'
     }
   },
-  computed:{
-    user_id(){
+  computed: {
+    user_id() {
       return this.$store.state.user_id;
     }
   },
-  created () {
+  created() {
     this.getOrderList()
   },
   methods: {
     getOrderList: function () {
-      this.axios.get('/api/order/searchUserAllOrder?userId='+this.user_id).then(res => {
+      this.axios.get('/api/order/searchUserAllOrder?userId=' + this.user_id).then(res => {
         console.log(res.orderList)
         this.orderList = res.orderList
         let lists = this.orderList
@@ -592,7 +706,7 @@ export default {
       })
     },
     getOrderListByStatus: function (userId, status) {
-      this.axios.get('/api/order/searchUserOrderByStatus?userId='+this.user_id+'&status=' + status).then(res => {
+      this.axios.get('/api/order/searchUserOrderByStatus?userId=' + this.user_id + '&status=' + status).then(res => {
         console.log(res.orderList)
         this.orderList = res.orderList
         let lists = this.orderList
@@ -668,7 +782,7 @@ export default {
       })
     },
     checkProduct: function (row) {
-      this.$router.push('/detail/'+row.productId);
+      this.$router.push('/detail/' + row.productId);
     },
     handleClick: function (tab) {
       console.log(this.orderList)
@@ -682,124 +796,168 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.tab{
+<style lang="scss">
+/*@import './../assets/scss/element-variables.scss';*/
+#userOrderList {
   padding: 30px 0 50px;
   position: relative;
   width: 1226px;
   margin-right: auto;
   margin-left: auto;
-}
 
-.el-tabs__nav-scroll{
-  width: 1226px;
-  text-align: -webkit-center;
-}
+  .tab {
+    .el-tabs__item {
+      width: 175px;
+      padding: 0;
+      text-align: center;
+    }
+    .el-tabs__content {
+      width: 1226px !important;
 
-.el-table {
-  border-top: none !important;
-}
+      .el-table__header-wrapper {
 
-.el-table__expanded-cell {
-  padding: 0 !important;
-}
+        .el-table__header {
+          width: 1226px !important;
+        }
+      }
+      .el-table__body-wrapper{
+        .el-table td.el-table__cell div{
+          margin-left: 41px;
+        }
+        width: 1226px !important;
+        .el-table tr{
+          width: 1226px !important;
+        }
+        .el-table__body{
+          width: 1226px !important;
+        }
+      }
 
-.tableWrap {
-  width: 100%;
-}
+      .tr {
+        .cell {
+          //width: 245.2px;
+        }
+      }
+    }
+  }
 
-.el-tabs__nav-scroll {
-  padding: 0 20px;
-  box-sizing: border-box;
-}
 
-.tableWrap .el-table {
-  width: 1240px;
-  margin: 0 auto;
-}
 
-.el-icon.el-icon-arrow-right {
-  color: #fff;
-}
-
-.el-table__row.expanded {
-  background: #fff !important;
-  position: relative !important;
-  top: -100px !important;
-  border: 1px solid red;
-}
-
-.el-tabs__content {
-  display: none;
-}
-
-.el-table__row.expanded > td {
-  padding: 7px 0;
-}
-
-.el-table__row.expanded {
-  border: 1px solid #E5E5E5;
-}
-
-.el-table__row.expanded:first-child {
-  border-bottom: none;
-}
-
-.childTable .el-table__body {
-  border-top: 1px solid #E5E5E5;
-}
-
-.childTable .el-table__row.expanded > td:first-child {
-  border-left: 1px solid #E5E5E5;
-}
-
-.childTable .el-table__row.expanded > td:last-child {
-  border-right: 1px solid #E5E5E5;
-}
-
-.el-tabs__header.is-top {
-  border-bottom: none;
-}
-
-.childTable .el-table__header-wrapper {
-  display: none;
-}
-
-.conWrap {
-  height: 44px;
-  background: #E5E5E5;
-  line-height: 44px;
-  padding-left: 10px;
-  font-size: 14px;
-  font-family: Microsoft YaHei;
-  line-height: 19px;
-  color: #333333;
-}
-
-.conWrap > span {
-  line-height: 44px;
-}
-
-.el-table .has-gutter .is-leaf {
-  position: relative !important;
-  left: -48px !important;
-}
-
-.el-table .has-gutter .is-leaf:last-child {
-  position: relative !important;
-  left: 0px !important;
-}
-
-.el-table__header-wrapper {
-  background: #EBEBEB;
-}
-
-.el-table .has-gutter > tr > th {
-  background: #EBEBEB;
-  font-size: 14px;
-  font-family: Microsoft YaHei;
-  font-weight: bold;
-  line-height: 19px;
-  color: #333333;
+  //.el-tabs__nav.is-top {
+  //  width: 1226px;
+  //}
+  //
+  //
+  //.el-tabs__nav-scroll {
+  //  width: 1226px;
+  //  text-align: -webkit-center;
+  //}
+  //
+  //.el-table {
+  //  border-top: none !important;
+  //}
+  //
+  //.el-table__expanded-cell {
+  //  padding: 0 !important;
+  //}
+  //
+  //.tableWrap {
+  //  width: 100%;
+  //}
+  //
+  //.el-tabs__nav-scroll {
+  //  padding: 0 20px;
+  //  box-sizing: border-box;
+  //}
+  //
+  //.tableWrap .el-table {
+  //  width: 1240px;
+  //  margin: 0 auto;
+  //}
+  //
+  //.el-icon.el-icon-arrow-right {
+  //  color: #fff;
+  //}
+  //
+  //.el-table__row.expanded {
+  //  background: #fff !important;
+  //  position: relative !important;
+  //  top: -100px !important;
+  //  border: 1px solid red;
+  //}
+  //
+  //.el-tabs__content {
+  //  display: none;
+  //}
+  //
+  //.el-table__row.expanded > td {
+  //  padding: 7px 0;
+  //}
+  //
+  //.el-table__row.expanded {
+  //  border: 1px solid #E5E5E5;
+  //}
+  //
+  //.el-table__row.expanded:first-child {
+  //  border-bottom: none;
+  //}
+  //
+  //.childTable .el-table__body {
+  //  border-top: 1px solid #E5E5E5;
+  //}
+  //
+  //.childTable .el-table__row.expanded > td:first-child {
+  //  border-left: 1px solid #E5E5E5;
+  //}
+  //
+  //.childTable .el-table__row.expanded > td:last-child {
+  //  border-right: 1px solid #E5E5E5;
+  //}
+  //
+  //.el-tabs__header.is-top {
+  //  border-bottom: none;
+  //}
+  //
+  //.childTable .el-table__header-wrapper {
+  //  display: none;
+  //}
+  //
+  //.conWrap {
+  //  height: 44px;
+  //  background: #E5E5E5;
+  //  line-height: 44px;
+  //  padding-left: 10px;
+  //  font-size: 14px;
+  //  font-family: Microsoft YaHei;
+  //  line-height: 19px;
+  //  color: #333333;
+  //}
+  //
+  //.conWrap > span {
+  //  line-height: 44px;
+  //}
+  //
+  //.el-table .has-gutter .is-leaf {
+  //  position: relative !important;
+  //  left: -48px !important;
+  //}
+  //
+  //.el-table .has-gutter .is-leaf:last-child {
+  //  position: relative !important;
+  //  left: 0px !important;
+  //}
+  //
+  //.el-table__header-wrapper {
+  //  background: #EBEBEB;
+  //}
+  //
+  //.el-table .has-gutter > tr > th {
+  //  background: #EBEBEB;
+  //  font-size: 14px;
+  //  font-family: Microsoft YaHei;
+  //  font-weight: bold;
+  //  line-height: 19px;
+  //  color: #333333;
+  //}
 }
 </style>

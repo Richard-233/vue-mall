@@ -7,6 +7,7 @@ import App from './App.vue'
 import ElementUI from 'element-ui';
 import VueCookie from 'vue-cookie';
 import store from './store'
+import './assets/scss/element-variables.scss'
 Vue.use(ElementUI);
 Vue.use(VueLazyload,{
   loading:'/imgs/loading-svg/loading-bars.svg'

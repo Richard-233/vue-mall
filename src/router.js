@@ -16,6 +16,7 @@ import shopOrderList from "./pages/shopOrderList";
 import searchProduct from "./pages/searchProduct"
 import userOrderList from "./pages/userOrderList"
 import searchShop from "./pages/searchShop"
+import searchCatalog from "./pages/searchCatalog"
 import sellerLogin from "./pages/sellerLogin"
 import shopDetail from "./pages/shopDetail"
 import userInfo from "./pages/userInfo"
@@ -59,6 +60,14 @@ export default new Router({
                     path: '/searchShop/:input',
                     name: 'searchShop',
                     component: searchShop,
+                }, {
+                    path: '/searchCatalog/:id/:input',
+                    name: 'searchCatalog',
+                    component: searchCatalog,
+                },{
+                    path: '/userInfo',
+                    name: 'userInfo',
+                    component: userInfo,
                 }
             ]
         },
@@ -162,10 +171,6 @@ export default new Router({
                     component: shopOrderList,
                 }
             ]
-        },{
-            path: '/userInfo',
-            name: 'userInfo',
-            component: userInfo,
         }
     ]
 })

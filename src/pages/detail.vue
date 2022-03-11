@@ -13,8 +13,8 @@
         <div class="content">
           <h2 class="item-title">{{product.name}}</h2>
           <p class="item-info">{{product.detail}}</p>
-          <div class="delivery">{{product.shopName}}</div>
-          <div class="item-price">{{product.price/100.00}}元<span class="del">1999元</span></div>
+          <div class="delivery" @click="toShopDetail">{{product.shopName}}</div>
+          <div class="item-price">{{product.price/100.00}}元</div>
           <div class="line"></div>
           <div class="item-addr">
             <i class="icon-loc"></i>
@@ -111,6 +111,9 @@ export default{
           type: 'success'
         })
       })
+    },
+    toShopDetail(){
+      this.$router.push('/shopDetail/' + this.product.shopId)
     }
   }
 }
@@ -147,10 +150,14 @@ export default{
       }
       .delivery{
         font-size:16px;
-        color:#e4291e;
+        color:#333333;
         margin-top:26px;
         margin-bottom:14px;
         height: 15px;
+        &:hover{
+          cursor: pointer;
+          color: #E4291E;
+        }
       }
       .item-price{
         font-size:20px;
