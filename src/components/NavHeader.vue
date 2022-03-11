@@ -99,6 +99,9 @@ export default {
     },
     myOrder: function () {
       this.$router.push('/userOrderList');
+    },
+    goToUserInfo:function(){
+      this.$router.push('/userInfo');
     }
   }
 }

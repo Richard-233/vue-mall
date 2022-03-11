@@ -103,16 +103,7 @@ export default {
       orderInfoVO: {
         'orderInfoList':[]
       },
-      orderInfo:{
-        'cartId': 0,
-        'userId': 0,
-        'productId': 0,
-        'quantity': 0,
-        'postage': 0,
-        'receiverAddress': '',
-        'receiverName': '',
-        'receiverMobile': ''
-      }
+      orderInfo:{}
     }
   },
   components: {
@@ -198,7 +189,9 @@ export default {
         }
         // console.log(this.orderInfoVO.orderInfoList)
 
-        this.axios.post('/api/cart/createOrder',this.orderInfoVO)
+        this.axios.post('/api/cart/createOrder',this.orderInfoVO).then(()=>{
+          this.$router.push('/cart');
+        })
       }).catch(() => {
         this.$message({
           type: 'info',
