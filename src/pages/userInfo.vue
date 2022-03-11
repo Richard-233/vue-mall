@@ -11,8 +11,31 @@
       <div class="mainInfo">
         <img v-lazy="user.image" alt="">
         <h2>{{user.nickname}}({{user.username}})</h2>
-        <a href="">修改个人信息</a>
+
       </div>
+      <el-button type="text" @click="dialogFormVisible = true">修改</el-button>
+      <el-dialog title="修改" :visible.sync="dialogFormVisible">
+        <el-form :model="form">
+          <el-form-item label="修改昵称" :label-width="formLabelWidth">
+            <el-input v-model="form.name" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="上传图片">
+            <el-upload
+                    class="avatar-uploader"
+                    action="/api/api/product/upload/file"
+                    :show-file-list="false"
+                    :on-success="handleAvatarSuccess"
+                    :before-upload="beforeAvatarUpload">
+              <img v-if="src" :src="src" class="avatar">
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="dialogFormVisible = false">取 消</el-button>
+          <el-button type="primary" @click="changeU">确 定</el-button>
+        </div>
+      </el-dialog>
       <div class="otherInfo">
         <span>注册时间： <em>{{date}}</em></span>
       </div>
@@ -26,7 +49,14 @@ export default {
   data() {
     return {
       user:{},
-      date:''
+      date:'',
+      dialogTableVisible: false,
+      dialogFormVisible: false,
+      form: {
+        name: '',
+      },
+      src:"123",
+      formLabelWidth: '120px'
     }
   },
   mounted() {
@@ -39,6 +69,32 @@ export default {
         let date1=res.createTime.split('T')
         this.date=date1[0]
       })
+    },
+    changeU(){
+      this.dialogFormVisible = false
+      let newUser={userNickname:this.form.name,userImage:this.src}
+      console.info(newUser)
+      this.axios.get('/api/user/updateInfo', {
+        params: newUser
+      })
+      console.info(newUser)
+
+
+    },
+    handleAvatarSuccess (res) {
+      this.src=res.data
+    },
+    beforeAvatarUpload (file) {
+      const isJPG = file.type === 'image/jpeg'
+      const isLt5M = file.size / 1024 / 1024 < 5
+
+      if (!isJPG) {
+        this.$message.error('上传图片只能是 JPG 格式!')
+      }
+      if (!isLt5M) {
+        this.$message.error('上传图片大小不能超过 5MB!')
+      }
+      return isJPG && isLt5M
     }
   }
 }
@@ -120,5 +176,29 @@ export default {
       }
     }
   }
+}
+
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409EFF;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
 }
 </style>
