@@ -63,19 +63,11 @@ export default new Router({
             ]
         },
         {
-            path: '/shopMain',
-            name: 'shopMain',
+            path: '/ProductManagement',
+            name: 'ProductManagement',
             component: () =>
-                import(/* webpackChunkName: "Main" */ './pages/shopMain'),
-            children: [
-                {
-                    path: '/ProductManagement',
-                    name: 'ProductManagement',
-                    component: () =>
-                        import(
-                            /* webpackChunkName: "Second" */ './pages/ProductManagement'
-                            )
-                },
+                import(/* webpackChunkName: "Main" */ './pages/ProductManagement'),
+        },
                 {
                     path: '/toEditProduct',
                     name: 'toEditProduct',
@@ -123,9 +115,7 @@ export default new Router({
                         import(
                             /* webpackChunkName: "Second" */ './pages/toAddNewShop'
                             )
-                }
-            ]
-        },
+                },
 
 
 

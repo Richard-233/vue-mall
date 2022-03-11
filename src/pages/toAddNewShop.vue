@@ -38,15 +38,15 @@
       </el-form-item>
 
       <el-form-item label="商铺图片">
-        <template slot-scope="scope">
+
           <img :src="src" width="60" height="60" class="head_pic"/>
-        </template>
+
       </el-form-item>
 
       <el-form-item label="上传商铺图片">
         <el-upload
                 class="avatar-uploader"
-                action="/api/product/upload/file"
+                action="/api/api/product/upload/file"
                 :show-file-list="false"
                 :on-success="handleAvatarSuccess"
                 :before-upload="beforeAvatarUpload">
@@ -136,7 +136,7 @@ export default {
         score: this.form.score,
         offline: this.form.offline}
       // console.info(newShop)
-      _addNewShop(newShop).then(res => {
+      _addNewShop(newShop).then(() => {
         this.refuse()
       })
     },

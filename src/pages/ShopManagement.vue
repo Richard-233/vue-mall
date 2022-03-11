@@ -51,7 +51,7 @@
 <!--                    width="90">-->
 <!--            </el-table-column>-->
             <el-table-column label="商铺图片">
-                <template slot-scope="scope">
+                <template >
                 <img :src="src" width="80" height="80" class="head_pic"/>
                 </template>
             </el-table-column>
@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import {_getShop, _deleteShopById} from './../api/shop'
+//import {_getShop, _deleteShopById} from './../api/shop'
 // import toEditProduct from './toEditProduct'
 // import {row} from 'element-ui'
 export default {
@@ -103,19 +103,33 @@ export default {
   },
   methods: {
     getShop: function () {
-      _getShop().then(res => {
-        this.shop = res.data
-        // 最后记得写上这一条
-        this.src = this.shop[0].image
-        // console.info(this.shop[0].image)
-        // console.info(res.data.)
-      })
+        this.axios.get('/api/shop/selectByUserId').then((res)=>{
+            this.shop = res
+            // 最后记得写上这一条
+            this.src = this.shop[0].image
+        })
+
+
+      // _getShop().then(res => {
+      //   this.shop = res.data
+      //   // 最后记得写上这一条
+      //   this.src = this.shop[0].image
+      //   // console.info(this.shop[0].image)
+      //   // console.info(res.data.)
+      // })
     },
     deleteRow (index, row) {
-      console.info(row.id)
-      let shopToBeDeleted = {id: row.id}
+      //console.info(row.id)
+        this.axios.get('/api/shop/delete', {
+                params: {
+                    id: row.id
+                }  })
+
+      //let shopToBeDeleted = {id: row.id}
+
       // console.info(productToBeDeleted)
-      _deleteShopById(shopToBeDeleted)
+      //_deleteShopById(shopToBeDeleted)
+
       this.shop.splice(index, 1)
     },
     editRow (row) {

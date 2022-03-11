@@ -120,7 +120,7 @@
 </template>
 
 <script>
-import {_getAll, _sendMessage, _selectAll, _windows, _beRead} from './../../src/api/api'
+//import {_getAll, _sendMessage, _selectAll, _windows, _beRead} from './../../src/api/api'
 // import {row} from 'element-ui'
 // import {_updateProductById} from '@/api/product'
 // import {_addNewProduct} from '../../../../api/product'
@@ -141,16 +141,29 @@ export default {
       this.new = 0
       ri = this.receiverId
       let ms = {receiverId: ri}
-      _getAll(ms).then(res => {
-        this.messages = res.data
-      })
+        this.axios.get('/api/communication/selectmessages', {
+            params: ms
+        }).then(res => {
+            this.messages = res
+        })
+
+      // _getAll(ms).then(res => {
+      //   this.messages = res.data
+      // })
     },
     sendMessage () {
       let mess = {messages: this.message, receiverId: this.receiverId}
-      _sendMessage(mess).then(res => {
-        // this.messages = res.data.list
-        this.getAll(this.receiverId)
-      })
+        this.axios.get('/api/communication/add', {
+            params: mess
+        }).then(() => {
+            this.getAll(this.receiverId)
+        })
+
+
+      // _sendMessage(mess).then(() => {
+      //   // this.messages = res.data.list
+      //   this.getAll(this.receiverId)
+      // })
     },
     refresh () {
       this.new = 0
@@ -163,19 +176,30 @@ export default {
       console.info(this.new)
     },
     selectAll () {
-      _selectAll().then(
-        res => {
-          this.messages = res.data
-        }
-      )
+        this.axios.get('/api/communication/selectall').then(res => {
+            this.messages = res
+        })
+
+      // _selectAll().then(
+      //   res => {
+      //     this.messages = res.data
+      //   }
+      // )
     },
     getWindows () {
-      _windows().then(
-        res => {
-          this.windows = res.data
-          // 这里要把unread加进去
-        }
-      )
+        this.axios.get('/api/communication/windows').then(res => {
+            this.windows = res
+            // 这里要把unread加进去
+
+        })
+
+
+      // _windows().then(
+      //   res => {
+      //     this.windows = res.data
+      //     // 这里要把unread加进去
+      //   }
+      //)
     },
     seeFriends (row) {
       this.receiverId = row.senderId
@@ -184,7 +208,12 @@ export default {
     beRead (row) {
       // console.info(row.senderId)
       let sId = {receiverId: row.senderId}
-      _beRead(sId)
+        this.axios.get('/api/communication/beread', {
+            params: sId
+        })
+
+
+      //_beRead(sId)
     }
 
   },

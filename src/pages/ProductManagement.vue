@@ -34,11 +34,11 @@
               label="商品名称"
               width="120">
       </el-table-column>
-      <el-table-column
-              prop="image"
-              label="商品图片"
-              width="120">
-      </el-table-column>
+<!--      <el-table-column-->
+<!--              prop="image"-->
+<!--              label="商品图片"-->
+<!--              width="120">-->
+<!--      </el-table-column>-->
 
       <el-table-column label="商品图片">
         <template slot-scope="scope">
@@ -114,7 +114,8 @@
 </template>
 
 <script>
-import {_getProductsAll, _getProductById, _getProductsByName, _deleteProductById} from './../api/product'
+  // _getProductsAll,
+//import { _getProductById, _getProductsByName, _deleteProductById} from './../api/product'
 // import toEditProduct from './toEditProduct'
 // import {row} from 'element-ui'
 export default {
@@ -132,18 +133,33 @@ export default {
   },
   methods: {
     getProductsAll: function () {
-      let page = {pageNum: this.pageNo, pageSize: this.pSize}
       // let page = {pageNum: this.pageNo, pageSize: this.pSize}
-      _getProductsAll(page).then(res => {
-        this.products = res.data.list
-        this.totals = res.data.total
+      // // let page = {pageNum: this.pageNo, pageSize: this.pSize}
+      // _getProductsAll(page).then(res => {
+      //   this.products = res.data.list
+      //   this.totals = res.data.total
+      // })
+      this.axios.get('/api/product/seller/product/list', {
+        params: {
+          pageNum: this.pageNo,
+          pageSize: this.pSize
+        }
+      }).then((res)=>{
+        this.products = res.list;
+        this.totals = res.total;
       })
     },
     deleteRow (index, row) {
       // console.info(row.id)
-      let productToBeDeleted = {id: row.id}
+      //let productToBeDeleted = {id: row.id}
       // console.info(productToBeDeleted)
-      _deleteProductById(productToBeDeleted)
+      //_deleteProductById(productToBeDeleted)
+      this.axios.get('/api/product/delete', {
+        params: {
+          id: row.id
+        }
+      })
+
       this.products.splice(index, 1)
     },
     editRow (row) {
@@ -162,7 +178,7 @@ export default {
           updateTime: row.updateTime}})
     },
     addNewProduct () {
-      this.$router.push({name: 'toAddNewProduct'})
+      this.$router.push('/toAddNewProduct')
     },
     handleSizeChange (size) {
       this.pSize = size
@@ -178,19 +194,31 @@ export default {
       this.pSize = 1000
       // console.info(this.inputId)
       // console.info(999)
-      _getProductById(shopId).then(res => {
-        this.products = res.data
-        // this.totals = res.data.total
+      this.axios.get('/api/product/id', {
+        params: shopId
+      }).then((res)=>{
+        this.products = res;
       })
+
+      // _getProductById(shopId).then(res => {
+      //   this.products = res.data
+      //   // this.totals = res.data.total
+      // })
     },
     getProductsByName () {
       let shopName = {name: this.inputName}
       this.pageNo = 1
       this.pSize = 1000
-      _getProductsByName(shopName).then(res => {
-        this.products = res.data
-        // this.totals = res.data.total
+      this.axios.get('/api/product/name', {
+        params: shopName
+      }).then((res)=>{
+        this.products = res;
       })
+
+      // _getProductsByName(shopName).then(res => {
+      //   this.products = res.data
+      //   // this.totals = res.data.total
+      // })
     }
 
   },

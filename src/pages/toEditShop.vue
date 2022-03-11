@@ -42,15 +42,15 @@
 <!--      </el-form-item>-->
 
       <el-form-item label="商铺图片">
-        <template slot-scope="scope">
+
           <img :src="src" width="60" height="60" class="head_pic"/>
-        </template>
+
       </el-form-item>
 
       <el-form-item label="上传商铺图片">
         <el-upload
                 class="avatar-uploader"
-                action="/api/product/upload/file"
+                action="/api/api/product/upload/file"
                 :show-file-list="false"
                 :on-success="handleAvatarSuccess"
                 :before-upload="beforeAvatarUpload">
@@ -101,7 +101,7 @@
   }
 </style>
 <script>
-import {_updateShopById} from './../api/shop'
+//import {_updateShopById} from './../api/shop'
 // import {row} from 'element-ui'
 // import {_addNewProduct} from '@/api/product'
 export default {
@@ -141,10 +141,17 @@ export default {
         score: this.form.score,
         offline: this.form.offline}
       // console.info(this.src)
-      _updateShopById(newShop).then(
-        // console.info(11123456)
-        res => { this.refuse() }
+      this.axios.get('/api/shop/update', {
+        params: newShop
+      }).then(
+              // console.info(11123456)
+              () => { this.refuse() }
       )
+
+      // _updateShopById(newShop).then(
+      //   // console.info(11123456)
+      //   () => { this.refuse() }
+      // )
       // console.info(this.price)
       // this.refuse()
       // _updateProductById(newProduct).then(this.$router.push({path: 'ProductManagement'}))

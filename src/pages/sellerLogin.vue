@@ -78,7 +78,7 @@ export default {
           nickname:res.nickname,
           image:res.image
         });
-        this.$router.push('/加一个跳转到管理员页面的接口');
+        this.$router.push('/ShopManagement');
       })
     },
   }
