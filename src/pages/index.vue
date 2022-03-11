@@ -4,39 +4,15 @@
       <div class="swiper-box">
         <div class="nav-menu">
           <ul class="menu-wrap">
-            <li class="menu-item">
-              <a href="javascript:;">手机 电话卡</a>
+            <li v-for="(item1,i) in catalogList" v-bind:key="i" class="menu-item">
+              <a href="javascript:;">{{ item1.name }}</a>
               <div class="children">
-                <ul v-for="(item,i) in menuList" v-bind:key="i">
-                  <li v-for="(sub,j) in item" v-bind:key="j">
-                    <a v-bind:href="sub?'/#/product/'+sub.id:''">
-                      <img v-bind:src="sub?sub.img:'/imgs/item-box-1.png'" alt="">
-                      {{ sub ? sub.name : '小米9' }}
-                    </a>
-                  </li>
+                <ul v-for="(item,i) in item1.childCatalog" v-bind:key="i">
+                  <a v-bind:href="'/#/searchCatalog/'+item.id+'/'+item.name">
+                    {{ item.name }}
+                  </a>
                 </ul>
               </div>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:;">电视 盒子</a>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:;">笔记本 平板</a>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:;">家电 插线板</a>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:;">出行 穿戴</a>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:;">智能 路由器</a>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:;">电源 配件</a>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:;">生活 箱包</a>
             </li>
           </ul>
         </div>
@@ -59,24 +35,24 @@
         <img v-lazy="'/imgs/banner-1.gif'" alt="">
       </div>
       <div class="product-box">
-          <h2>好物推荐</h2>
-          <div class="wrapper">
-            <div class="list-box">
-              <div class="list" v-for="(arr,i) in itemList" v-bind:key="i">
-                <div class="item" v-for="(item,j) in arr" v-bind:key="j" @click="checkProduct(item.id)">
-                  <span v-bind:class="{'new-pro':j%2===0}">新品</span>
-                  <div class="item-img">
-                    <img v-lazy="item.image" alt="" >
-                  </div>
-                  <div class="item-info">
-                    <h3>{{item.name}}</h3>
-                    <p>{{item.detail}}</p>
-                    <p class="price">￥{{item.price/100.00}}</p>
-                  </div>
+        <h2>好物推荐</h2>
+        <div class="wrapper">
+          <div class="list-box">
+            <div class="list" v-for="(arr,i) in itemList" v-bind:key="i">
+              <div class="item" v-for="(item,j) in arr" v-bind:key="j" @click="checkProduct(item.id)">
+                <span v-bind:class="{'kill-pro':item.status===2}">商家推荐</span>
+                <div class="item-img">
+                  <img v-lazy="item.image" alt="">
+                </div>
+                <div class="item-info">
+                  <h3>{{ item.name }}</h3>
+                  <p>{{ item.detail }}</p>
+                  <p class="price">￥{{ item.price / 100.00 }}</p>
                 </div>
               </div>
             </div>
           </div>
+        </div>
       </div>
     </div>
   </div>
@@ -91,8 +67,10 @@ export default {
     Swiper,
     SwiperSlide
   },
-  mounted(){
+  mounted() {
     this.init()
+    this.getCatalog()
+    this.reload()
   },
   data() {
     return {
@@ -138,26 +116,6 @@ export default {
           img: '/imgs/slider/slide-1.jpg'
         }
       ],
-      menuList: [
-        [{
-          id: 30,
-          img: '/imgs/item-box-1.png',
-          name: '小米CC',
-        }, {
-          id: 31,
-          img: '/imgs/item-box-2.png',
-          name: '小米8CC',
-        }, {
-          id: 32,
-          img: '/imgs/item-box-3.jpg',
-          name: 'red米CC',
-        }, {
-          id: 33,
-          img: '/imgs/item-box-4.jpg',
-          name: '小米CC',
-        }],
-        [], [], [], [], []
-      ],
       adsList: [
         {
           id: 33,
@@ -174,7 +132,7 @@ export default {
         }
       ],
       itemList: [],
-      catalogList:[]
+      catalogList: []
     }
   },
   methods: {
@@ -187,24 +145,30 @@ export default {
       }).then((res) => {
         let size = res.list.length
         let foot = size % 5
-        for(let i=0;i<size;i=i+5){
-          if(i+5>size){
-            this.itemList.push(res.list.slice(i,i+foot))
-          }
-          else{
-            this.itemList.push(res.list.slice(i,i+5))
+        for (let i = 0; i < size; i = i + 5) {
+          if (i + 5 > size) {
+            this.itemList.push(res.list.slice(i, i + foot))
+          } else {
+            this.itemList.push(res.list.slice(i, i + 5))
           }
         }
       })
     },
     checkProduct: function (id) {
-      this.$router.push('/detail/'+id);
+      this.$router.push('/detail/' + id);
     },
-    getCatalog:function(){
-      this.axios.post('/api/catalog/custom/list').then((res1)=>{
-        this.catalogList=res1
+    getCatalog: function () {
+      this.axios.post('/api/catalog/custom/list').then((res1) => {
+        this.catalogList = res1
+        console.log(JSON.stringify(this.catalogList))
       })
-    }
+    },
+    reload: function () {
+      if (location.href.indexOf("#reloaded") === -1) {
+        location.href = location.href + "#reloaded";
+        location.reload();
+      }
+    },
   }
 }
 </script>
@@ -255,30 +219,26 @@ export default {
 
           .children {
             display: none;
-            width: 962px;
-            height: 451px;
-            background-color: #FFFFFF;
+            width: 130px;
+            height: 449px;
+            background-color: #FFFFFF00;
             position: absolute;
             top: 0;
             left: 264px;
-            border: 1px solid #E4291E;
 
             ul {
-              display: flex;
               justify-content: space-between;
-              height: 75px;
-
-              li {
-                height: 75px;
-                line-height: 75px;
-                width: 241px;
-                flex: 1;
-                padding-left: 23px;
-              }
+              height: 55px;
+              width: 130px;
+              vertical-align: center;
+              display: inline-block;
 
               a {
-                color: #333333;
+                color: #ffffff;
                 font-size: 14px;
+                height: fit-content;
+                background-color: #E4291E;
+                width: 100px;
               }
 
               img {
@@ -332,6 +292,7 @@ export default {
   .product-box {
     padding: 30px 0 50px;
     margin-left: 0px;
+
     h2 {
       font-size: 22px;
       height: 21px;
@@ -350,6 +311,8 @@ export default {
 
           &:last-child {
             margin-bottom: 0;
+            display: flex;
+            float: left;
           }
 
           .item {
@@ -360,24 +323,28 @@ export default {
             text-align: center;
             margin-left: 10px;
             cursor: pointer;
-            span{
-              display:inline-block;
-              width:67px;
-              height:24px;
-              font-size:14px;
-              line-height:24px;
-              color:#ffffff;
-              &.new-pro{
-                background-color:#7ECF68;
+
+            span {
+              display: inline-block;
+              width: 67px;
+              height: 24px;
+              font-size: 14px;
+              line-height: 24px;
+              color: #ffffff;
+
+              &.new-pro {
+                background-color: #7ECF68;
               }
-              &.kill-pro{
-                background-color:#E4291E;
+
+              &.kill-pro {
+                background-color: #E4291E;
               }
             }
+
             .item-img {
               img {
                 height: 195px;
-                width:100%;
+                width: 100%;
               }
             }
 
