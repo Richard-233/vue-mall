@@ -78,28 +78,7 @@
     },
     data(){
       return {
-        list:[
-          {
-            'shopId': 1,
-            'shopName': '新世纪百货',
-            'indeterminateShop': false,
-            'shopSelectedAll': false,
-            'shopCartInfoList': [
-              {
-                'cartId': 7,
-                'userId': 1,
-                'shopId': 1,
-                'productId': 9,
-                'shopName': '新世纪百货',
-                'productName': '小型可控核聚变装置',
-                'productImg': 'url',
-                'price': 999999990,
-                'quantity': 2,
-                'selected': false
-              }
-            ]
-          }
-        ],//商品列表
+        list:[],//商品列表
         allChecked:false,//是否全选
         cartTotalPrice:0,//商品总金额
         checkedNum:0,//选中商品数量

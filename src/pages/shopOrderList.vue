@@ -572,32 +572,7 @@ export default {
   name: 'shopOrderList',
   data: function () {
     return {
-      orderList: [
-        {
-          'orderId': 2,
-          'orderItemList': [
-            {
-              'orderItemId': 1,
-              'productId': 1,
-              'orderId': 2,
-              'userId': 1,
-              'shopId': 2,
-              'productName': '11茅台1',
-              'productImg': 'url',
-              'unitPrice': 2000,
-              'quantity': 1,
-              'itemTotalPrice': 2000,
-              'shopName': '成都酒水批发',
-              'postage': 10,
-              'orderTotalPrice': 2000,
-              'receiverName': 'yyy',
-              'receiverMobile': '15883406150',
-              'receiverAddress': 'ysr家',
-              'orderStatus': 2
-            }
-          ]
-        }
-      ],
+      orderList: [],
       activeName: '0'
     }
   },

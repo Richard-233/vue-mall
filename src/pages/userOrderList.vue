@@ -22,7 +22,7 @@
                     <el-tag size="medium" class="name" style="margin-left:42px;">收货人姓名:{{ props.row.receiverName }}</el-tag>
                     <el-button style="margin-left:42px;" v-if="props.row.orderStatus===2" type="text" size="small" v-on:click="confirmReceipt(props.row.orderId)">确认收货</el-button>
                     <el-button style="margin-left:42px;" v-else-if="props.row.orderStatus===3" type="text" size="small" v-on:click="grade(props.row.orderId)">评分</el-button>
-                    <el-button style="margin-left:42px;" type="text" size="small" v-if="props.row.orderStatus!==5 && props.row.orderStatus!==6 && props.row.orderStatus!==7" v-on:click="refund(props.row.orderId)">申请退款</el-button>
+                    <el-button style="margin-left:42px;" type="text" size="small" v-if="props.row.orderStatus!==4 && props.row.orderStatus!==5 && props.row.orderStatus!==6 && props.row.orderStatus!==7" v-on:click="refund(props.row.orderId)">申请退款</el-button>
                   </div>
                 </el-popover>
               </div>
@@ -101,7 +101,7 @@
                     <el-tag size="medium" class="name" style="margin-left:42px;">收货人姓名:{{ props.row.receiverName }}</el-tag>
                     <el-button style="margin-left:42px;" v-if="props.row.orderStatus===2" type="text" size="small" v-on:click="confirmReceipt(props.row.orderId)">确认收货</el-button>
                     <el-button style="margin-left:42px;" v-else-if="props.row.orderStatus===3" type="text" size="small" v-on:click="grade(props.row.orderId)">评分</el-button>
-                    <el-button style="margin-left:42px;" type="text" size="small" v-if="props.row.orderStatus!==5 && props.row.orderStatus!==6 && props.row.orderStatus!==7" v-on:click="refund(props.row.orderId)">申请退款</el-button>
+                    <el-button style="margin-left:42px;" type="text" size="small" v-if="props.row.orderStatus!==4 && props.row.orderStatus!==5 && props.row.orderStatus!==6 && props.row.orderStatus!==7" v-on:click="refund(props.row.orderId)">申请退款</el-button>
                   </div>
                 </el-popover>
               </div>
@@ -180,7 +180,7 @@
                     <el-tag size="medium" class="name" style="margin-left:42px;">收货人姓名:{{ props.row.receiverName }}</el-tag>
                     <el-button style="margin-left:42px;" v-if="props.row.orderStatus===2" type="text" size="small" v-on:click="confirmReceipt(props.row.orderId)">确认收货</el-button>
                     <el-button style="margin-left:42px;" v-else-if="props.row.orderStatus===3" type="text" size="small" v-on:click="grade(props.row.orderId)">评分</el-button>
-                    <el-button style="margin-left:42px;" type="text" size="small" v-if="props.row.orderStatus!==5 && props.row.orderStatus!==6 && props.row.orderStatus!==7" v-on:click="refund(props.row.orderId)">申请退款</el-button>
+                    <el-button style="margin-left:42px;" type="text" size="small" v-if="props.row.orderStatus!==4 && props.row.orderStatus!==5 && props.row.orderStatus!==6 && props.row.orderStatus!==7" v-on:click="refund(props.row.orderId)">申请退款</el-button>
                   </div>
                 </el-popover>
               </div>
@@ -259,7 +259,7 @@
                     <el-tag size="medium" class="name" style="margin-left:42px;">收货人姓名:{{ props.row.receiverName }}</el-tag>
                     <el-button style="margin-left:42px;" v-if="props.row.orderStatus===2" type="text" size="small" v-on:click="confirmReceipt(props.row.orderId)">确认收货</el-button>
                     <el-button style="margin-left:42px;" v-else-if="props.row.orderStatus===3" type="text" size="small" v-on:click="grade(props.row.orderId)">评分</el-button>
-                    <el-button style="margin-left:42px;" type="text" size="small" v-if="props.row.orderStatus!==5 && props.row.orderStatus!==6 && props.row.orderStatus!==7" v-on:click="refund(props.row.orderId)">申请退款</el-button>
+                    <el-button style="margin-left:42px;" type="text" size="small" v-if="props.row.orderStatus!==4 && props.row.orderStatus!==5 && props.row.orderStatus!==6 && props.row.orderStatus!==7" v-on:click="refund(props.row.orderId)">申请退款</el-button>
                   </div>
                 </el-popover>
               </div>
@@ -338,7 +338,7 @@
                     <el-tag size="medium" class="name" style="margin-left:42px;">收货人姓名:{{ props.row.receiverName }}</el-tag>
                     <el-button style="margin-left:42px;" v-if="props.row.orderStatus===2" type="text" size="small" v-on:click="confirmReceipt(props.row.orderId)">确认收货</el-button>
                     <el-button style="margin-left:42px;" v-else-if="props.row.orderStatus===3" type="text" size="small" v-on:click="grade(props.row.orderId)">评分</el-button>
-                    <el-button style="margin-left:42px;" type="text" size="small" v-if="props.row.orderStatus!==5 && props.row.orderStatus!==6 && props.row.orderStatus!==7" v-on:click="refund(props.row.orderId)">申请退款</el-button>
+                    <el-button style="margin-left:42px;" type="text" size="small" v-if="props.row.orderStatus!==4 && props.row.orderStatus!==5 && props.row.orderStatus!==6 && props.row.orderStatus!==7" v-on:click="refund(props.row.orderId)">申请退款</el-button>
                   </div>
                 </el-popover>
               </div>
@@ -417,7 +417,7 @@
                     <el-tag size="medium" class="name" style="margin-left:42px;">收货人姓名:{{ props.row.receiverName }}</el-tag>
                     <el-button style="margin-left:42px;" v-if="props.row.orderStatus===2" type="text" size="small" v-on:click="confirmReceipt(props.row.orderId)">确认收货</el-button>
                     <el-button style="margin-left:42px;" v-else-if="props.row.orderStatus===3" type="text" size="small" v-on:click="grade(props.row.orderId)">评分</el-button>
-                    <el-button style="margin-left:42px;" type="text" size="small" v-if="props.row.orderStatus!==5 && props.row.orderStatus!==6 && props.row.orderStatus!==7" v-on:click="refund(props.row.orderId)">申请退款</el-button>
+                    <el-button style="margin-left:42px;" type="text" size="small" v-if="props.row.orderStatus!==4 && props.row.orderStatus!==5 && props.row.orderStatus!==6 && props.row.orderStatus!==7" v-on:click="refund(props.row.orderId)">申请退款</el-button>
                   </div>
                 </el-popover>
               </div>
@@ -496,7 +496,7 @@
                     <el-tag size="medium" class="name" style="margin-left:42px;">收货人姓名:{{ props.row.receiverName }}</el-tag>
                     <el-button style="margin-left:42px;" v-if="props.row.orderStatus===2" type="text" size="small" v-on:click="confirmReceipt(props.row.orderId)">确认收货</el-button>
                     <el-button style="margin-left:42px;" v-else-if="props.row.orderStatus===3" type="text" size="small" v-on:click="grade(props.row.orderId)">评分</el-button>
-                    <el-button style="margin-left:42px;" type="text" size="small" v-if="props.row.orderStatus!==5 && props.row.orderStatus!==6 && props.row.orderStatus!==7" v-on:click="refund(props.row.orderId)">申请退款</el-button>
+                    <el-button style="margin-left:42px;" type="text" size="small" v-if="props.row.orderStatus!==4 && props.row.orderStatus!==5 && props.row.orderStatus!==6 && props.row.orderStatus!==7" v-on:click="refund(props.row.orderId)">申请退款</el-button>
                   </div>
                 </el-popover>
               </div>
@@ -561,32 +561,7 @@ export default {
   name: 'userOrderList',
   data: function () {
     return {
-      orderList: [
-        {
-          'orderId': 2,
-          'orderItemList': [
-            {
-              'orderItemId': 1,
-              'productId': 1,
-              'orderId': 2,
-              'userId': 1,
-              'shopId': 2,
-              'productName': '11茅台1',
-              'productImg': 'url',
-              'unitPrice': 2000,
-              'quantity': 1,
-              'itemTotalPrice': 2000,
-              'shopName': '成都酒水批发',
-              'postage': 10,
-              'orderTotalPrice': 2000,
-              'receiverName': 'yyy',
-              'receiverMobile': '15883406150',
-              'receiverAddress': 'ysr家',
-              'orderStatus': 2
-            }
-          ]
-        }
-      ],
+      orderList: [],
       activeName: '0'
     }
   },
@@ -672,9 +647,26 @@ export default {
         })
       })
     },
-    // grade: function (orderId) {
-    //
-    // },
+    grade: function (orderId) {
+      this.$confirm('评分', '提示', {
+        confirmButtonText: '只有好评',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$message({
+          type: 'success',
+          message: '已好评!'
+        })
+        this.axios.post('/api/order/buyerChangeOrderStatus?orderId=' + orderId).then(() => {
+          this.getOrderList()
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消评分！'
+        })
+      })
+    },
     checkProduct: function (row) {
       this.$router.push('/detail/'+row.productId);
     },
