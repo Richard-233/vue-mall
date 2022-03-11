@@ -20,6 +20,10 @@ import searchCatalog from "./pages/searchCatalog"
 import sellerLogin from "./pages/sellerLogin"
 import shopDetail from "./pages/shopDetail"
 import userInfo from "./pages/userInfo"
+import ShopList from "./pages/ShopList"
+import userAddress from "./pages/userAddress"
+import addressForm from "./pages/addressForm";
+import shopProduct from "./pages/shopProduct";
 
 Vue.use(Router);
 
@@ -171,6 +175,29 @@ export default new Router({
                     component: shopOrderList,
                 }
             ]
+        },{
+            path: '/userInfo',
+            name: 'userInfo',
+            component: userInfo,
+        },{
+            path: '/ShopList',
+            name: 'ShopList',
+            component: ShopList,
+        },
+        {
+            path: '/userAddress',
+            name: 'userAddress',
+            component: userAddress,
+        },
+        {
+            path: '/addressForm',
+            name: 'addressForm',
+            component: addressForm,
+        },
+        {
+            path: '/shopProduct',
+            name: 'shopProduct',
+            component: shopProduct,
         }
     ]
 })

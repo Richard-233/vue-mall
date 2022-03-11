@@ -185,15 +185,17 @@ export default {
         status: this.form.status,
         createTime: '',
         updateTime: ''}
-      //console.info(newProduct)
+      console.info(newProduct)
       // _addNewProduct(newProduct).then(() => {
       //   this.refuse()
       // })
-      this.axios.get('/api/product/add', {
+      this.axios.get('/api/product/admin/add', {
         params: newProduct
       }).then(
-              // console.info(11123456)
-              () => { this.refuse() }
+
+              () => {
+                console.info(11123456)
+                this.refuse() }
       )
 
 
