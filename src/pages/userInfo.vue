@@ -10,7 +10,7 @@
     <div class="main">
       <div class="mainInfo">
         <img v-lazy="user.image" alt="">
-        <h2>{{ user.nickname }}({{ user.username }})</h2>
+        <h2>{{ user.nickname }}  ({{ user.username }})</h2>
         <el-button type="text" @click="dialogFormVisible = true">修改个人信息</el-button>
       </div>
       <el-dialog title="修改" :visible.sync="dialogFormVisible">
@@ -97,7 +97,7 @@ export default {
       return isJPG && isLt5M
     },
     goToShop(){
-      this.$router.push('/ShopMangement')
+      this.$router.push('/ShopManagement')
     },
     addShop() {
       // console.info(this.src)

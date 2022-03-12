@@ -1,7 +1,7 @@
 <template>
   <div id="container">
     <div class="sidebar">
-      <span><img src="/imgs/pdd_small_logo1.png" alt="">卖家管理系统</span>
+      <span><img src="/imgs/pdd_small_logo1.png" alt="" @click="goToIndex">卖家管理系统</span>
       <a href="javascript:" @click="goToShop">商店管理</a>
       <a href="javascript:" @click="goToProduct">商品管理</a>
       <a href="javascript:" style="background-color: #e4291e">订单管理</a>
@@ -810,6 +810,12 @@ export default {
     },
     goToProduct() {
       this.$router.push('/ProductManagement')
+    },
+    goToShop(){
+      this.$router.push('/ShopManagement')
+    },
+    goToIndex(){
+      this.$router.push('/index')
     }
   }
 }
@@ -844,6 +850,7 @@ export default {
         position: relative;
         top: 14px;
         margin-right: 5px;
+        cursor: pointer;
       }
     }
 
