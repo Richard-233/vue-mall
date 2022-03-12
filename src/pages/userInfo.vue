@@ -4,16 +4,15 @@
       <a href="javascript:" @click="goToCart">我的购物车</a>
       <a href="javascript:" @click="myOrder">我的订单</a>
       <a href="javascript:">我的收货地址</a>
-      <a href="" v-if="user.role===1">我的店铺</a>
-      <a href="" v-if="user.role===0">注册店铺</a>
+      <a href="javascript:" v-if="user.role===1" @click="goToShop">我的店铺</a>
+      <a href="javascript:" v-if="user.role===0" @click="addShop">注册店铺</a>
     </div>
     <div class="main">
       <div class="mainInfo">
         <img v-lazy="user.image" alt="">
-        <h2>{{user.nickname}}({{user.username}})</h2>
-
+        <h2>{{ user.nickname }}  ({{ user.username }})</h2>
+        <el-button type="text" @click="dialogFormVisible = true">修改个人信息</el-button>
       </div>
-      <el-button type="text" @click="dialogFormVisible = true">修改</el-button>
       <el-dialog title="修改" :visible.sync="dialogFormVisible">
         <el-form :model="form">
           <el-form-item label="修改昵称" :label-width="formLabelWidth">
@@ -21,11 +20,11 @@
           </el-form-item>
           <el-form-item label="上传图片">
             <el-upload
-                    class="avatar-uploader"
-                    action="/api/api/product/upload/file"
-                    :show-file-list="false"
-                    :on-success="handleAvatarSuccess"
-                    :before-upload="beforeAvatarUpload">
+                class="avatar-uploader"
+                action="/api/api/product/upload/file"
+                :show-file-list="false"
+                :on-success="handleAvatarSuccess"
+                :before-upload="beforeAvatarUpload">
               <img v-if="src" :src="src" class="avatar">
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
@@ -37,7 +36,7 @@
         </div>
       </el-dialog>
       <div class="otherInfo">
-        <span>注册时间： <em>{{date}}</em></span>
+        <span>注册时间： <em>{{ date }}</em></span>
       </div>
     </div>
   </div>
@@ -48,52 +47,47 @@ export default {
   name: "userInfo",
   data() {
     return {
-      user:{},
-      date:'',
+      user: {},
+      date: '',
       dialogTableVisible: false,
       dialogFormVisible: false,
       form: {
         name: '',
       },
-      src:"123",
+      src: "123",
       formLabelWidth: '120px'
     }
   },
   mounted() {
     this.getUserInfo()
   },
-  methods:{
-    getUserInfo(){
-      this.axios.get('/api/user/loginUserInfo').then((res)=>{
-        this.user=res
-        let date1=res.createTime.split('T')
-        this.date=date1[0]
+  methods: {
+    getUserInfo() {
+      this.axios.get('/api/user/loginUserInfo').then((res) => {
+        this.user = res
+        let date1 = res.createTime.split('T')
+        this.date = date1[0]
       })
     },
     myOrder: function () {
       this.$router.push('/userOrderList');
     },
-    goToCart(){
+    goToCart() {
       this.$router.push('/cart');
     },
-    changeU(){
+    changeU() {
       this.dialogFormVisible = false
-      let newUser={userNickname:this.form.name,userImage:this.src}
-      console.info(newUser)
+      let newUser = {userNickname: this.form.name, userImage: this.src}
       this.axios.get('/api/user/updateInfo', {
         params: newUser
       })
-      console.info(newUser)
-
-
     },
-    handleAvatarSuccess (res) {
-      this.src=res.data
+    handleAvatarSuccess(res) {
+      this.src = res.data
     },
-    beforeAvatarUpload (file) {
+    beforeAvatarUpload(file) {
       const isJPG = file.type === 'image/jpeg'
       const isLt5M = file.size / 1024 / 1024 < 5
-
       if (!isJPG) {
         this.$message.error('上传图片只能是 JPG 格式!')
       }
@@ -101,6 +95,13 @@ export default {
         this.$message.error('上传图片大小不能超过 5MB!')
       }
       return isJPG && isLt5M
+    },
+    goToShop(){
+      this.$router.push('/ShopManagement')
+    },
+    addShop() {
+      // console.info(this.src)
+      this.$router.push({name: 'toAddNewShop'})
     }
   }
 }
@@ -154,7 +155,8 @@ export default {
       h2 {
         margin: 16px;
       }
-      a{
+
+      button {
         display: block;
         font-size: 14px;
         text-align: right;
@@ -163,7 +165,8 @@ export default {
         margin-top: 18px;
         margin-left: 153px;
         color: #546d7e;
-        &:hover{
+
+        &:hover {
           color: #e4291e;
         }
       }
@@ -184,16 +187,21 @@ export default {
   }
 }
 
-.avatar-uploader .el-upload {
-  border: 1px dashed #d9d9d9;
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
+  .avatar-uploader {
+    .el-upload {
+      border: 1px dashed #d9d9d9;
+      border-radius: 6px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+  }
+
+
 .avatar-uploader .el-upload:hover {
   border-color: #409EFF;
 }
+
 .avatar-uploader-icon {
   font-size: 28px;
   color: #8c939d;
@@ -202,6 +210,7 @@ export default {
   line-height: 178px;
   text-align: center;
 }
+
 .avatar {
   width: 178px;
   height: 178px;
