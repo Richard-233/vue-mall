@@ -1,9 +1,9 @@
 <template>
     <div>
-<!--        <el-row :gutter="20">-->
-<!--            <el-col :span="16"><el-input placeholder="请输入接收者id" v-model="receiverId"  ></el-input></el-col>-->
-<!--            <el-col :span="8"> <el-button @click="refresh" type="success">查询聊天记录</el-button></el-col>-->
-<!--        </el-row>-->
+        <el-row :gutter="20">
+            <el-col :span="16"><el-input placeholder="请输入接收者id" v-model="receiverId"  ></el-input></el-col>
+            <el-col :span="8"> <el-button @click="refresh" type="success">查询聊天记录</el-button></el-col>
+        </el-row>
 
         <el-row :gutter="20">1</el-row>
         <el-row :gutter="20">
@@ -144,6 +144,7 @@ export default {
         this.axios.get('/api/communication/selectmessages', {
             params: ms
         }).then(res => {
+            console.info(res)
             this.messages = res
         })
 
