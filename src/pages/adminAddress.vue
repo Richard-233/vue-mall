@@ -13,7 +13,7 @@
         <el-row>
           <el-button icon="el-icon-circle-plus-outline" round>
             <template>
-              <router-link :to="`/addressForm`" style="text-decoration: none;">新建收货地址</router-link>
+              <router-link :to="`/addressFormAdmin`" style="text-decoration: none;">新建收货地址</router-link>
             </template>
           </el-button>
         </el-row>
@@ -25,13 +25,13 @@
           <el-table-column
               prop="userId"
               label="userId"
-              width="80"
+              width="100"
               sortable>
           </el-table-column>
           <el-table-column
               prop="status"
               label="地址标签"
-              width="120">
+              width="100">
             <template slot-scope="scope">
               <el-tooltip effect="dark" placement="right" content="点击设置默认地址">
                 <el-button v-if="scope.row.status===0" type="info" @click="setDefaultAddress(scope.row)">无</el-button>
@@ -145,21 +145,12 @@ export default {
       }, {
         status: '3',
         label: '公司'
-      }],
-      id:''
+      }]
     }
   },
   methods: {
-    getUserInfo(){
-      this.axios.get('/api/user/loginUserInfo').then((res)=>{
-        this.id=res.id
-      })
-    },
     getAddresses: function () {
-      console.info(99999)
-      console.info(this.id)
-      this.axios.get('/api/userAddress/getByUserId').then((res) => {
-        console.info(res)
+      this.axios.get('/api/userAddress/getAddress').then((res) => {
         this.addresses = res
       })
 
@@ -171,7 +162,6 @@ export default {
       this.$confirm('此操作将把该地址设置为默认地址, 是否继续?', '提示', {
         type: 'warning'
       }).then(() => {
-        console.log(9595959)
         console.log(param1)
         this.axios.get('/api/userAddress/setDefaultAddress', {
           params: param1
@@ -188,9 +178,71 @@ export default {
         this.$message.info('已取消操作!')
       })
 
+      //   api._setDefault(param1).then(() => {
+      //     console.log(param1)
+      //     this.$message.success('设置成功!')
+      //     this.getAddresses()
+      //   }).catch(() => {
+      //     this.$message.error('设置失败!')
+      //   })
+      // }).catch(() => {
+      //   this.$message.info('已取消操作!')
+      // })
 
+
+      //   api._setDefault(param1).then(() => {
+      //     console.log(param1)
+      //     this.$message.success('设置成功!')
+      //     this.getAddresses()
+      //   }).catch(() => {
+      //     this.$message.error('设置失败!')
+      //   })
+      // }).catch(() => {
+      //   this.$message.info('已取消操作!')
+      // })
     },
-
+    // setHomeAddress (param2) {
+    //   this.$confirm('此操作将, 是否继续?', '提示', {
+    //     type: 'warning'
+    //   }).then(() => {
+    //     api._setHome(param2).then(() => {
+    //       this.$message.success('成功!')
+    //       this.getAddresses()
+    //     }).catch(() => {
+    //       this.$message.error('删除失败!')
+    //     })
+    //   }).catch(() => {
+    //     this.$message.info('已取消操作!')
+    //   })
+    // },
+    // setSchoolAddress (param3) {
+    //   this.$confirm('此操作将, 是否继续?', '提示', {
+    //     type: 'warning'
+    //   }).then(() => {
+    //     api._setSchool(param3).then(() => {
+    //       this.$message.success('成功!')
+    //       this.getAddresses()
+    //     }).catch(() => {
+    //       this.$message.error('失败!')
+    //     })
+    //   }).catch(() => {
+    //     this.$message.info('已取消操作!')
+    //   })
+    // },
+    // setCompanyAddress (param4) {
+    //   this.$confirm('此操作将, 是否继续?', '提示', {
+    //     type: 'warning'
+    //   }).then(() => {
+    //     api._setCompany(param4).then(() => {
+    //       this.$message.success('成功!')
+    //       this.getAddresses()
+    //     }).catch(() => {
+    //       this.$message.error('失败!')
+    //     })
+    //   }).catch(() => {
+    //     this.$message.info('已取消操作!')
+    //   })
+    // },
     onSubmit (row) {
       console.info(row)
       console.info(this.updateForm)
@@ -207,6 +259,15 @@ export default {
       })
     },
 
+    //   _update(this.updateForm).then(() => {
+    //     this.$message.success('成功!')
+    //     this.getAddresses()
+    //   }).catch(() => {
+    //     this.$message.error('失败!')
+    //   }).catch(() => {
+    //     this.$message.info('已取消操作!')
+    //   })
+    // },
     onSubmit1 (row) {
       console.info(row)
       console.info(this.updateForm)
@@ -275,7 +336,6 @@ export default {
   },
   created () {
     this.getAddresses()
-    this.getUserInfo()
   }
 }
 
