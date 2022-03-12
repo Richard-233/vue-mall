@@ -4,8 +4,8 @@
       <a href="javascript:" @click="goToCart">我的购物车</a>
       <a href="javascript:" @click="myOrder">我的订单</a>
       <a href="javascript:">我的收货地址</a>
-      <a href="" v-if="user.role===1" @click="goToShop">我的店铺</a>
-      <a href="" v-if="user.role===0" @click="addShop">注册店铺</a>
+      <a href="javascript:" v-if="user.role===1" @click="goToShop">我的店铺</a>
+      <a href="javascript:" v-if="user.role===0" @click="addShop">注册店铺</a>
     </div>
     <div class="main">
       <div class="mainInfo">
