@@ -7,7 +7,6 @@ import Detail from './pages/detail'
 import Cart from './pages/cart'
 import Order from './pages/order'
 import OrderConfirm from './pages/orderConfirm'
-import OrderList from './pages/orderList'
 import OrderPay from './pages/orderPay'
 import Alipay from './pages/alipay'
 import Login from './pages/login'
@@ -150,10 +149,6 @@ export default new Router({
             component: Order,
             children: [
                 {
-                    path: 'list',
-                    name: 'order-list',
-                    component: OrderList
-                }, {
                     path: 'confirm',
                     name: 'order-confirm',
                     component: OrderConfirm
@@ -169,12 +164,12 @@ export default new Router({
                     path: '/userOrderList',
                     name: 'userOrderList',
                     component: userOrderList,
-                }, {
-                    path: '/shopOrderList',
-                    name: 'shopOrderList',
-                    component: shopOrderList,
                 }
             ]
+        }, {
+            path: '/shopOrderList',
+            name: 'shopOrderList',
+            component: shopOrderList,
         },{
             path: '/userInfo',
             name: 'userInfo',

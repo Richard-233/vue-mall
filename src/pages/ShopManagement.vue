@@ -1,14 +1,16 @@
 <template>
   <div id="container">
     <div class="sidebar">
-      <a href="javascript:">商店管理</a>
-      <a href="javascript:">商品管理</a>
+      <span><img src="/imgs/pdd_small_logo1.png" alt="">卖家管理系统</span>
+      <a href="javascript:" style="background-color: #e4291e">商店管理</a>
+      <a href="javascript:"  @click="goToProduct">商品管理</a>
+      <a href="javascript:"  @click="goToOrder">订单管理</a>
     </div>
     <div>
       <el-row :gutter="20"></el-row>
       <el-row :gutter="20">
         <el-col :span="8">
-          <el-button @click="addShop" type="success" style="margin-bottom: 10px">新建商铺</el-button>
+          <el-button @click="addShop" type="success" style="margin: 40px 0 10px">新建商铺</el-button>
         </el-col>
       </el-row>
       <el-row :gutter="20"></el-row>
@@ -163,28 +165,59 @@ export default {
     addShop() {
       // console.info(this.src)
       this.$router.push({name: 'toAddNewShop'})
+    },
+    goToProduct(){
+      this.$router.push('/ProductManagement')
+    },
+    goToOrder(){
+      this.$router.push('/shopOrderList')
     }
   },
   created() {
     this.getShop()
   }
+
 }
 </script>
 
 <style lang="scss" scoped>
 #container{
   display: flex;
-  padding: 30px 0 50px;
   position: relative;
   margin-right: auto;
   margin-left: auto;
   .sidebar{
     width: 225px;
-    background-color: #e4291e;
+    background-color: #55585a7a;
     display: grid;
     margin-right: 57px;
+    height: 320px;
+    float: top;
+    span{
+      color: #ffffff;
+      font-size: 19px;
+      font-weight: bold;
+      height: 80px;
+      line-height: 80px;
+      text-align: center;
+      img{
+        width: 44px;
+        height: 44px;
+        position: relative;
+        top: 14px;
+        margin-right: 5px;
+      }
+    }
     a{
       color: #ffffff;
+      text-align: center;
+      font-size: 19px;
+      font-weight: bold;
+      height: 80px;
+      line-height: 80px;
+      &:hover{
+        background-color: #e4291e;
+      }
     }
   }
 }
