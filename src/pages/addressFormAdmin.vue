@@ -22,9 +22,9 @@
 <!--        <el-form-item label="标签" prop="status">-->
 <!--        <el-input v-model.="addressForm.status"></el-input>-->
 <!--        </el-form-item>-->
-<!--        <el-form-item label="userid" prop="userId">-->
-<!--        <el-input v-model="addressForm.userId" clearable></el-input>-->
-<!--        </el-form-item>-->
+        <el-form-item label="userid" prop="userId">
+        <el-input v-model="addressForm.userId" clearable></el-input>
+        </el-form-item>
         <el-form-item label="标签" prop="status">
           <el-select v-model="addressForm.status" placeholder="请选择标签">
             <el-option v-for="item in options"
@@ -70,6 +70,9 @@ export default {
         ],
         status: [
           { required: true, message: '请选择标签', trigger: 'change' }
+        ],
+        userId: [
+          { required: true, message: '请输入userId', trigger: 'blur' }
         ]
       },
       options: [{
@@ -110,11 +113,11 @@ export default {
   },
   methods: {
     onSubmit () {
-      this.axios.post('/api/userAddress/createUserAddress',
+      this.axios.post('/api/userAddress/createUserAddressAdmin',
           this.addressForm
       ).then(() => {
         this.$message.success('创建地址成功！')
-        this.$router.push('/userAddress')
+        this.$router.push('/adminAddress')
         console.log(this.addressForm)
       }).catch(() => {
         this.$message.error('新建地址失败!')
@@ -129,7 +132,7 @@ export default {
       // })
     },
     goPrevious () {
-      this.$router.push('/userAddress')
+      this.$router.push('/adminAddress')
     }
     // created () {
     //   this.onSubmit()

@@ -23,6 +23,8 @@ import ShopList from "./pages/ShopList"
 import userAddress from "./pages/userAddress"
 import addressForm from "./pages/addressForm";
 import shopProduct from "./pages/shopProduct";
+import adminAddress from "./pages/adminAddress";
+import addressFormAdmin from "./pages/addressFormAdmin";
 
 Vue.use(Router);
 
@@ -193,6 +195,16 @@ export default new Router({
             path: '/shopProduct',
             name: 'shopProduct',
             component: shopProduct,
+        },
+        {
+            path: '/adminAddress',
+            name: 'adminAddress',
+            component: adminAddress,
+        },
+        {
+            path: '/addressFormAdmin',
+            name: 'addressFormAdmin',
+            component: addressFormAdmin,
         }
     ]
 })
