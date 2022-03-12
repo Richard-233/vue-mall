@@ -3,8 +3,9 @@
     <el-card class="crumbs-card">
       <div class="crumbs">
         <el-breadcrumb separator="/">
-          <el-breadcrumb-item :to="{ path: '/main/' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/main/first' }">店铺</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/index' }">首页</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/ShopList' }">店铺</el-breadcrumb-item>
+          <span>商城管理员系统</span>
         </el-breadcrumb>
       </div>
     </el-card>
