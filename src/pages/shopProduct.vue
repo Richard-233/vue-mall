@@ -1,5 +1,14 @@
 <template>
   <div>
+    <el-card class="crumbs-card">
+      <div class="crumbs">
+        <el-breadcrumb separator="/">
+          <el-breadcrumb-item :to="{ path: '/index' }">首页</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/ShopList' }">店铺</el-breadcrumb-item>
+          <span>商城管理员系统</span>
+        </el-breadcrumb>
+      </div>
+    </el-card>
     <el-row :gutter="20">
       <el-col :span="16"><el-input placeholder="请输入商品id" v-model="inputId"  ></el-input></el-col>
       <el-col :span="8"> <el-button @click="getProductById" type="success">搜索</el-button></el-col>
