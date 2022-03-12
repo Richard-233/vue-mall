@@ -3,8 +3,8 @@
     <el-card class="crumbs-card">
       <div class="crumbs">
         <el-breadcrumb separator="/">
-          <el-breadcrumb-item :to="{ path: '/main/' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/main/second/second' }">地址</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/userInfo' }">返回</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/userAddress' }">收货地址</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
     </el-card>
@@ -13,7 +13,7 @@
         <el-row>
           <el-button icon="el-icon-circle-plus-outline" round>
             <template>
-              <router-link :to="`/addressForm`" style="text-decoration: none;">新建收货地址</router-link>
+              <router-link :to="`/addressForm`" style="text-decoration: none;color: #909399">新建收货地址</router-link>
             </template>
           </el-button>
         </el-row>

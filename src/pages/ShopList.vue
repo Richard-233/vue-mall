@@ -5,6 +5,7 @@
         <el-breadcrumb separator="/">
           <el-breadcrumb-item :to="{ path: '/index' }">首页</el-breadcrumb-item>
           <el-breadcrumb-item :to="{ path: '/ShopList' }">店铺</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/adminAddress' }">地址</el-breadcrumb-item>
           <span>商城管理员系统</span>
         </el-breadcrumb>
       </div>

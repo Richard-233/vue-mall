@@ -3,14 +3,15 @@
     <div class="menu">
       <a href="javascript:" @click="goToCart">我的购物车</a>
       <a href="javascript:" @click="myOrder">我的订单</a>
-      <a href="javascript:">我的收货地址</a>
+      <a href="javascript:" @click="goToAddress">我的收货地址</a>
       <a href="javascript:" v-if="user.role===1" @click="goToShop">我的店铺</a>
       <a href="javascript:" v-if="user.role===0" @click="addShop">注册店铺</a>
+      <a href="javascript:" @click="goToCommunicate">夕夕聊天</a>
     </div>
     <div class="main">
       <div class="mainInfo">
-        <img v-lazy="user.image" alt="">
-        <h2>{{ user.nickname }}  ({{ user.username }})</h2>
+        <img v-lazy="user_image" alt="">
+        <h2>昵称：{{ user_nickname }}  ({{ user.username }})</h2>
         <el-button type="text" @click="dialogFormVisible = true">修改个人信息</el-button>
       </div>
       <el-dialog title="修改" :visible.sync="dialogFormVisible">
@@ -81,6 +82,10 @@ export default {
       this.axios.get('/api/user/updateInfo', {
         params: newUser
       })
+      this.$store.dispatch('saveUserInfo', {
+        nickname:this.form.name,
+        image:this.src
+      });
     },
     handleAvatarSuccess(res) {
       this.src = res.data
@@ -102,8 +107,22 @@ export default {
     addShop() {
       // console.info(this.src)
       this.$router.push({name: 'toAddNewShop'})
+    },
+    goToCommunicate(){
+      this.$router.push('/communicator')
+    },
+    goToAddress(){
+      this.$router.push('/userAddress')
     }
-  }
+  },
+  computed:{
+    user_nickname(){
+      return this.$store.state.nickname;
+    },
+    user_image(){
+      return this.$store.state.user_image;
+    }
+  },
 }
 </script>
 
@@ -126,7 +145,7 @@ export default {
       font-size: 19px;
       height: fit-content;
       color: #333333;
-      margin-bottom: 54px;
+      margin-bottom: 38px;
 
       &:hover {
         color: #e4291e;
