@@ -16,6 +16,7 @@
             <a href="javascript:">{{user_nickname}}</a>
           </a>
           <a href="javascript:" v-if="!user_nickname" @click="login">登录/注册</a>
+          <a href="javascript:" v-if="user_nickname" @click="logout">登出</a>
           <a href="javascript:" v-if="user_nickname" @click="myOrder">我的订单</a>
           <a href="javascript:" class="my-cart" @click="goToCart"><span class="icon-cart"></span> 购物车</a>
         </div>
