@@ -26,13 +26,20 @@
           <div class="swiper-button-next" slot="button-next"></div>
         </swiper>
       </div>
-      <div class="ads-box">
-        <a v-bind:href="'/#/product/'+item.id" v-for="(item,index) in adsList" v-bind:key="index">
-          <img v-lazy="item.img" alt="">
-        </a>
-      </div>
-      <div class="banner">
-        <img v-lazy="'/imgs/banner-1.gif'" alt="">
+      <div class="box">
+        <div class="ads-box">
+          <div class="ads-box1">
+            <a v-bind:href="'/#/product/'+item.id" v-for="(item,index) in adsList1" v-bind:key="index">
+            <img v-lazy="item.img" alt=""></a>
+          </div>
+          <div class="ads-box2">
+            <a v-bind:href="'/#/product/'+item.id" v-for="(item,index) in adsList2" v-bind:key="index">
+            <img v-lazy="item.img" alt=""></a>
+          </div>
+        </div>
+        <div class="banner">
+          <img v-lazy="'/imgs/banner-1.gif'" alt="">
+        </div>
       </div>
       <div class="product-box">
         <h2>好物推荐</h2>
@@ -116,14 +123,17 @@ export default {
           img: '/imgs/slider/slide-1.jpg'
         }
       ],
-      adsList: [
+      adsList1: [
         {
           id: 33,
           img: '/imgs/ads/ads-1.png'
         }, {
           id: 48,
           img: '/imgs/ads/ads-2.png'
-        }, {
+        }
+      ],
+      adsList2: [
+        {
           id: 45,
           img: '/imgs/ads/ads-3.png'
         }, {
@@ -178,6 +188,7 @@ export default {
 
 .index {
   .swiper-box {
+    border-radius: 20px;
     .nav-menu {
       position: absolute;
       width: 264px;
@@ -186,12 +197,12 @@ export default {
       padding: 26px 0;
       background-color: #55585a7a;
       box-sizing: border-box;
-
+      border-radius:33px 0 0 33px;
       .menu-wrap {
         .menu-item {
           height: 50px;
           line-height: 50px;
-
+          transition: all 0.3s;
           a {
             position: relative;
             display: block;
@@ -199,7 +210,6 @@ export default {
             color: #FFFFFF;
             padding-left: 30px;
             font-weight: bold;
-
             &:after {
               position: absolute;
               right: 30px;
@@ -256,6 +266,7 @@ export default {
     .swiper-container {
       --swiper-theme-color: #e4291e;
       height: 451px;
+      border-radius: 33px;
 
       .swiper-button-prev {
         left: 274px;
@@ -269,25 +280,45 @@ export default {
     }
   }
 
-  .ads-box {
-    @include flex();
+  .box {
+    display: flex;
     margin-top: 14px;
     margin-bottom: 15px;
+    height:359.65px;
+    .ads-box{
+      display: inline-flex;
+      margin-right: 10px;
+      height:309.65px;
+      width:608px;
+      .ads-box1 {
+        width: 305px;
+        height: 154px;
+        margin-right: 7px;
+        img{
+          border-radius: 33px;
+        }
+      }
+      .ads-box2 {
+        width: 305px;
+        height: 154px;
+        img{
+          border-radius: 33px;
+        }
+      }
+    }
 
-    a {
-      width: 296px;
-      height: 116px;
+    .banner {
+      margin-bottom: 50px;
+
+      img {
+        width: 608px;
+        height: 100%;
+        border-radius: 20px;
+      }
     }
   }
 
-  .banner {
-    margin-bottom: 50px;
 
-    img {
-      width: 100%;
-      height: 100%;
-    }
-  }
 
   .product-box {
     padding: 30px 0 50px;
@@ -308,21 +339,32 @@ export default {
         .list {
           @include flex();
           margin-bottom: 14px;
-
+          width:1226px;
           &:last-child {
             margin-bottom: 0;
-            display: flex;
             float: left;
+            display:flex;
+            justify-content: flex-start;
+            .item{
+              width: 233.8px;
+              height: 315.98px;
+              margin-left: 8px;
+            }
           }
-
           .item {
             justify-content: center;
             width: 236px;
             height: 312px;
-            background-color: #ffffff;
+            background-color: #f7f9fa;
             text-align: center;
-            margin-left: 10px;
             cursor: pointer;
+            border: 2px solid #ffffff;
+            border-radius: 20px;
+            transition: all 0.3s;
+            &:hover{
+              border: 2px solid #e4291e;
+              background-color: #ffffff;
+            }
 
             span {
               display: inline-block;
@@ -330,7 +372,7 @@ export default {
               height: 24px;
               font-size: 14px;
               line-height: 24px;
-              color: #ffffff;
+              color: #f7f9fa;
 
               &.new-pro {
                 background-color: #7ECF68;
@@ -344,7 +386,10 @@ export default {
             .item-img {
               img {
                 height: 195px;
-                width: 100%;
+                width: 90%;
+                border-radius: 33px;
+                padding: 0 10px 0;
+                margin-bottom: 16px;
               }
             }
 
@@ -367,7 +412,6 @@ export default {
                 font-size: 14px;
                 font-weight: bold;
                 cursor: pointer;
-
               }
             }
           }

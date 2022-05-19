@@ -72,10 +72,10 @@ export default {
   watch:{
     radio: function () {
       if (this.radio==='1'){
-        this.holder='新鲜水果'
+        this.holder='西瓜'
       }
       else{
-        this.holder='上程数据'
+        this.holder='成都'
       }
     }
   },
@@ -89,12 +89,18 @@ export default {
     toSearch: function () {
       if(this.radio === '1'){
         this.$cookie.set("radio",this.radio,{expires:'1H'});
-        this.$router.push('/searchProduct/'+this.input);
+        if(this.input===''){
+          this.$router.push('/searchProduct/'+this.holder);
+        }
+        else this.$router.push('/searchProduct/'+this.input);
         this.$router.go(0);
       }
       else if(this.radio === '2'){
         this.$cookie.set("radio",this.radio,{expires:'1H'});
-        this.$router.push('/searchShop/'+this.input);
+        if(this.input===''){
+          this.$router.push('/searchShop/'+this.holder);
+        }
+        else this.$router.push('/searchShop/'+this.input);
         this.$router.go(0);
       }
     },
