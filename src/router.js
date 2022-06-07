@@ -10,7 +10,6 @@ import OrderConfirm from './pages/orderConfirm'
 import OrderPay from './pages/orderPay'
 import Alipay from './pages/alipay'
 import Login from './pages/login'
-import ProductList from './pages/productList'
 import shopOrderList from "./pages/shopOrderList";
 import searchProduct from "./pages/searchProduct"
 import userOrderList from "./pages/userOrderList"
@@ -53,10 +52,6 @@ export default new Router({
                     path: '/shopDetail/:id',
                     name: 'shopDetail',
                     component: shopDetail,
-                },{
-                    path: '/productList',
-                    name: 'productList',
-                    component: ProductList,
                 }, {
                     path: '/searchProduct/:input',
                     name: 'searchProduct',

@@ -8,8 +8,9 @@
     <div class="wrapper">
       <div class="container">
         <div class="order-box">
-          <div>
-            <el-select v-model="value" placeholder="请选择收货地址" style="width: 400px">
+          <div class="address">
+            <h2>收货地址</h2>
+            <el-select v-model="value" placeholder="请选择收货地址" style="margin-left: 610px">
               <el-option
                   v-for="item in addressList"
                   :key="item.id"
@@ -84,12 +85,13 @@
         </div>
       </div>
     </div>
+    <service-bar></service-bar>
+    <nav-footer></nav-footer>
   </div>
 </template>
 <script>
-// import OrderHeader from './../components/OrderHeader'
-// import Modal from './../components/Modal'
 
+import OrderHeader from "@/components/OrderHeader";
 export default {
   name: 'order-confirm',
   data() {
@@ -107,7 +109,7 @@ export default {
     }
   },
   components: {
-    // OrderHeader
+    OrderHeader
     // Modal
   },
   computed:{
@@ -207,94 +209,103 @@ export default {
 .order-confirm {
   .wrapper {
     background-color: #F5F5F5;
-    padding-top: 30px;
     padding-bottom: 84px;
-
+    padding-top: 30px;
     .order-box {
       background-color: #ffffff;
-      background-color: #ffffff;
-      padding-left: 40px;
-      padding-right: 40px;
-      padding-bottom: 40px;
-      .addr-title {
-        font-size: 20px;
-        color: #333333;
-        font-weight: 200;
-        margin-bottom: 21px;
-      }
+      border-radius: 25px;
+      padding: 31px 40px 40px;
 
-      .item-address {
-        padding-top: 38px;
-
-        .addr-list {
-          .addr-info, .addr-add {
-            box-sizing: border-box;
-            float: left;
-            width: 271px;
-            height: 180px;
-            border: 1px solid #E5E5E5;
-            margin-right: 15px;
-            padding: 15px 24px;
-            font-size: 14px;
-            color: #757575;
-          }
-
-          .addr-info {
-            cursor: pointer;
-
-            h2 {
-              height: 27px;
-              font-size: 18px;
-              font-weight: 300;
-              color: #333;
-              margin-bottom: 10px;
-            }
-
-            .street {
-              height: 50px;
-            }
-
-            .action {
-              height: 50px;
-              line-height: 50px;
-
-              .icon {
-                width: 20px;
-                height: 20px;
-                fill: #666666;
-                vertical-align: middle;
-
-                &:hover {
-                  fill: #e4291e;
-                }
-              }
-            }
-
-            &.checked {
-              border: 1px solid #e4291e;
-            }
-          }
-
-          .addr-add {
-            text-align: center;
-            color: #999999;
-            cursor: pointer;
-
-            .icon-add {
-              width: 30px;
-              height: 30px;
-              border-radius: 50%;
-              background: url('/imgs/icon-add.png') #E0E0E0 no-repeat center;
-              background-size: 14px;
-              margin: 0 auto;
-              margin-top: 45px;
-              margin-bottom: 10px;
-            }
-          }
+      .address{
+        display: flex;
+        h2{
+          font-size: 20px;
+          padding-top: 4px;
+        }
+        .el-input--suffix{
+          width: 450px;
         }
       }
+      //.addr-title {
+      //  font-size: 20px;
+      //  color: #333333;
+      //  font-weight: 200;
+      //  margin-bottom: 21px;
+      //}
+
+      //.item-address {
+      //  padding-top: 38px;
+      //
+      //  .addr-list {
+      //    .addr-info, .addr-add {
+      //      box-sizing: border-box;
+      //      float: left;
+      //      width: 271px;
+      //      height: 180px;
+      //      border: 1px solid #E5E5E5;
+      //      margin-right: 15px;
+      //      padding: 15px 24px;
+      //      font-size: 14px;
+      //      color: #757575;
+      //    }
+      //
+      //    .addr-info {
+      //      cursor: pointer;
+      //
+      //      h2 {
+      //        height: 27px;
+      //        font-size: 18px;
+      //        font-weight: 300;
+      //        color: #333;
+      //        margin-bottom: 10px;
+      //      }
+      //
+      //      .street {
+      //        height: 50px;
+      //      }
+      //
+      //      .action {
+      //        height: 50px;
+      //        line-height: 50px;
+      //
+      //        .icon {
+      //          width: 20px;
+      //          height: 20px;
+      //          fill: #666666;
+      //          vertical-align: middle;
+      //
+      //          &:hover {
+      //            fill: #e4291e;
+      //          }
+      //        }
+      //      }
+      //
+      //      &.checked {
+      //        border: 1px solid #e4291e;
+      //      }
+      //    }
+      //
+      //    .addr-add {
+      //      text-align: center;
+      //      color: #999999;
+      //      cursor: pointer;
+      //
+      //      .icon-add {
+      //        width: 30px;
+      //        height: 30px;
+      //        border-radius: 50%;
+      //        background: url('/imgs/icon-add.png') #E0E0E0 no-repeat center;
+      //        background-size: 14px;
+      //        margin: 0 auto;
+      //        margin-top: 45px;
+      //        margin-bottom: 10px;
+      //      }
+      //    }
+      //  }
+      //}
 
       .item-good {
+        margin-top:31px;
         h2{
           display: inline-block;
           margin-bottom: 8px;
@@ -417,6 +428,7 @@ export default {
       }
 
       .detail {
+        width: 100%;
         padding: 50px 44px 33px 0;
         border-bottom: 1px solid #f5f5f5;
         text-align: right;
@@ -443,6 +455,9 @@ export default {
       .btn-group {
         margin-top: 37px;
         text-align: right;
+        .btn{
+          border-radius: 25px;
+        }
       }
     }
 

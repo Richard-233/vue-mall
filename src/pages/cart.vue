@@ -201,6 +201,7 @@
         font-size:14px;
         color:#999999;
         text-align:center;
+        border-radius: 25px;
         .checkbox{
           display: inline-block;
           width: 22px;
@@ -344,6 +345,7 @@
             line-height:50px;
             font-size:18px;
             margin-left:37px;
+            border-radius: 25px;
           }
         }
       }

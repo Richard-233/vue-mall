@@ -136,8 +136,8 @@ export default{
     .swiper{
       --swiper-theme-color: #e4291e;
       float:left;
-      width:300px;
-      height:300px;
+      width:600px;
+      height:617px;
       margin-top:5px;
       margin-left: 153px;
       img{
@@ -277,39 +277,58 @@ export default{
         .list {
           @include flex();
           margin-bottom: 14px;
-
+          width:1226px;
           &:last-child {
             margin-bottom: 0;
-            display: flex;
             float: left;
+            display:flex;
+            justify-content: flex-start;
+            .item{
+              width: 233.8px;
+              height: 315.98px;
+              margin-left: 8px;
+            }
           }
-
           .item {
             justify-content: center;
             width: 236px;
             height: 312px;
-            background-color: #ffffff;
+            background-color: #f7f9fa;
             text-align: center;
-            margin-left: 10px;
             cursor: pointer;
-            span{
-              display:inline-block;
-              width:67px;
-              height:24px;
-              font-size:14px;
-              line-height:24px;
-              color:#ffffff;
-              &.new-pro{
-                background-color:#7ECF68;
+            border: 2px solid #ffffff;
+            border-radius: 20px;
+            transition: all 0.3s;
+            &:hover{
+              border: 2px solid #e4291e;
+              background-color: #ffffff;
+            }
+
+            span {
+              display: inline-block;
+              width: 67px;
+              height: 24px;
+              font-size: 14px;
+              line-height: 24px;
+              color: #f7f9fa;
+              border-radius:7px;
+              margin: 2px 0 2px;
+              &.new-pro {
+                background-color: #7ECF68;
               }
-              &.kill-pro{
-                background-color:#E4291E;
+
+              &.kill-pro {
+                background-color: #E4291E;
               }
             }
+
             .item-img {
               img {
                 height: 195px;
-                width:100%;
+                width: 90%;
+                border-radius: 33px;
+                padding: 0 10px 0;
+                margin-bottom: 16px;
               }
             }
 
@@ -332,7 +351,6 @@ export default{
                 font-size: 14px;
                 font-weight: bold;
                 cursor: pointer;
-
               }
             }
           }
