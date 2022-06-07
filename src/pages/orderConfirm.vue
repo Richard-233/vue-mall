@@ -10,7 +10,8 @@
         <div class="order-box">
           <div class="address">
             <h2>收货地址</h2>
-            <el-select v-model="value" placeholder="请选择收货地址" style="margin-left: 610px">
+            <a href="/#/userAddress">地址管理</a>
+            <el-select v-model="value" placeholder="请选择收货地址">
               <el-option
                   v-for="item in addressList"
                   :key="item.id"
@@ -221,6 +222,12 @@ export default {
         h2{
           font-size: 20px;
           padding-top: 4px;
+        }
+        a{
+          margin-left: 544px;
+          padding-top: 10px;
+          margin-right: 11px;
+          font-size: 14px;
         }
         .el-input--suffix{
           width: 450px;
