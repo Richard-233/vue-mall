@@ -100,17 +100,22 @@ export default{
       })
     },
     addCart(){
-      this.cart.productId = this.id
-      this.cart.userId = this.user_id
-      this.cart.quantity = this.num
-      console.log(this.cart)
-      this.axios.post('/api/cart/addToCart',this.cart).then(()=>{
-        this.$message({
-          showClose: true,
-          message: '添加成功',
-          type: 'success'
+      if(this.$store.state.nickname===''){
+        this.$router.push('/login');
+      }
+      else{
+        this.cart.productId = this.id
+        this.cart.userId = this.user_id
+        this.cart.quantity = this.num
+        console.log(this.cart)
+        this.axios.post('/api/cart/addToCart', this.cart).then(() => {
+          this.$message({
+            showClose: true,
+            message: '添加成功',
+            type: 'success'
+          })
         })
-      })
+      }
     },
     toShopDetail(){
       this.$router.push('/shopDetail/' + this.product.shopId)
@@ -122,16 +127,21 @@ export default{
 @import './../assets/scss/config.scss';
 @import './../assets/scss/mixin.scss';
 .detail{
+  position: relative;
+  width: 1226px;
+  margin-right: auto;
+  margin-left: auto;
   .wrapper{
     .swiper{
       --swiper-theme-color: #e4291e;
       float:left;
-      width:642px;
+      width:600px;
       height:617px;
       margin-top:5px;
       img{
         width:100%;
         height:100%;
+        border-radius: 69px;
       }
     }
     .content{

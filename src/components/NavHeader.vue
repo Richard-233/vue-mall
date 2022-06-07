@@ -83,22 +83,41 @@ export default {
     login(){
       this.$router.push('/login');
     },
+    logout(){
+      this.axios.post('/api/user/logout').then(()=>{
+        // this.$message.success('退出成功');
+        this.$cookie.set('userId','',{expires:'-1'});
+        this.$store.dispatch('saveUserInfo', {
+          nickname:'',
+          image:''
+        });
+      })
+    },
     goToCart(){
-      this.$router.push('/cart');
+      console.log('用户昵称是'+this.user_nickname)
+      if(this.user_nickname===''){
+        this.login()
+      }
+      else this.$router.push('/cart');
     },
     toSearch: function () {
       if(this.radio === '1'){
-        this.$cookie.set("radio",this.radio,{expires:'1H'});
-        if(this.input===''){
-          this.$router.push('/searchProduct/'+this.holder);
+        // this.$cookie.set("radio",this.radio,{expires:new Date(new Date().getTime()+60*1000)});
+        this.$cookie.set("radio",this.radio,{expires:'1M'});
+        if(this.input===undefined){
+          this.input=this.holder;
+          console.log('input:'+this.input)
+          this.$router.push('/searchProduct/'+this.input);
         }
         else this.$router.push('/searchProduct/'+this.input);
         this.$router.go(0);
       }
       else if(this.radio === '2'){
-        this.$cookie.set("radio",this.radio,{expires:'1H'});
-        if(this.input===''){
-          this.$router.push('/searchShop/'+this.holder);
+        // this.$cookie.set("radio",this.radio,{expires:new Date(new Date().getTime()+60*1000)});
+        this.$cookie.set("radio",this.radio,{expires:'1M'});
+        if(this.input===undefined){
+          this.input=this.holder;
+          this.$router.push('/searchShop/'+this.input);
         }
         else this.$router.push('/searchShop/'+this.input);
         this.$router.go(0);

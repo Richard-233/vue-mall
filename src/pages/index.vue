@@ -170,7 +170,7 @@ export default {
     getCatalog: function () {
       this.axios.post('/api/catalog/custom/list').then((res1) => {
         this.catalogList = res1
-        console.log(JSON.stringify(this.catalogList))
+        // console.log(JSON.stringify(this.catalogList))
       })
     },
     reload: function () {
@@ -210,6 +210,7 @@ export default {
             color: #FFFFFF;
             padding-left: 30px;
             font-weight: bold;
+            border-radius: 0px 20px 20px 0px;
             &:after {
               position: absolute;
               right: 30px;
@@ -373,7 +374,8 @@ export default {
               font-size: 14px;
               line-height: 24px;
               color: #f7f9fa;
-
+              border-radius:7px;
+              margin: 2px 0 2px;
               &.new-pro {
                 background-color: #7ECF68;
               }

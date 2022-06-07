@@ -22,7 +22,7 @@ axios.interceptors.response.use(function(response){
   if(res.status ===666){
     return res.data;
   }else if(res.status ===10007){
-    // if(path!=='#/index'){
+    // if(path!=='#/index#reloaded'){
     //   window.location.href='/#/login'
     // }
   }else{

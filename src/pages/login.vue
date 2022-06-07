@@ -74,7 +74,7 @@ export default {
       this.user.username = this.username
       this.user.password = this.password
       this.axios.post('/api/user/login',this.user).then((res)=>{
-        this.$cookie.set('userId',res.id,{expires:'1M'});
+        this.$cookie.set('userId',res.id,{expires:'Session'});
         this.$store.dispatch('saveUserInfo', {
           nickname:res.nickname,
           image:res.image

@@ -50,7 +50,7 @@
     &.is_fixed{
       position:fixed;
       top:0;
-      width:100%;
+      width:1226px;
       box-shadow: 0 5px 5px $colorE;
     }
     .container{
@@ -59,8 +59,10 @@
         font-size:$fontH;
         color:$colorB;
         font-weight:bold;
+        margin-left:45px;
       }
       .pro-param{
+        margin-right: 30px;
         font-size:$fontJ;
         span{
           margin:0 10px;

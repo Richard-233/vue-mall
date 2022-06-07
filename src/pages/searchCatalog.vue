@@ -80,26 +80,37 @@ export default {
 
   .wrapper {
     display: flex;
-
     .list-box {
       .list {
         @include flex();
         margin-bottom: 14px;
-
+        width:1226px;
         &:last-child {
           margin-bottom: 0;
-          display: flex;
           float: left;
+          display:flex;
+          justify-content: flex-start;
+          .product-item{
+            width: 233.8px;
+            height: 315.98px;
+            margin-left: 8px;
+            background-color: #f7f9fa;
+          }
         }
-
-        .item {
+        .product-item {
           justify-content: center;
           width: 236px;
           height: 312px;
-          background-color: #ffffff;
+          background-color: #f7f9fa;
           text-align: center;
-          margin-left: 10px;
           cursor: pointer;
+          border: 2px solid #ffffff;
+          border-radius: 20px;
+          transition: all 0.3s;
+          &:hover{
+            border: 2px solid #e4291e;
+            background-color: #ffffff;
+          }
 
           span {
             display: inline-block;
@@ -107,8 +118,9 @@ export default {
             height: 24px;
             font-size: 14px;
             line-height: 24px;
-            color: #ffffff;
-
+            color: #f7f9fa;
+            border-radius:7px;
+            margin: 2px 0 2px;
             &.new-pro {
               background-color: #7ECF68;
             }
@@ -121,7 +133,10 @@ export default {
           .item-img {
             img {
               height: 195px;
-              width: 100%;
+              width: 90%;
+              border-radius: 33px;
+              padding: 0 10px 0;
+              margin-bottom: 16px;
             }
           }
 
@@ -144,7 +159,6 @@ export default {
               font-size: 14px;
               font-weight: bold;
               cursor: pointer;
-
             }
           }
         }
