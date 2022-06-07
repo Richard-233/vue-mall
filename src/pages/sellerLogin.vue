@@ -50,7 +50,7 @@
         <a href="https://careers.pinduoduo.com/jobs">社会招聘</a><span>|</span>
         <a href="https://www.pinduoduo.com/home/about/">关于我们</a>
       </div>
-      <p class="copyright">Copyright ©2022 TEAM07 All Rights Reserved.</p>
+      <p class="copyright">Copyright ©2022 TEAM10 All Rights Reserved.</p>
     </div>
   </div>
 </template>
