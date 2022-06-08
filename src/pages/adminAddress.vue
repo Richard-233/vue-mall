@@ -44,6 +44,12 @@
             <i class="el-icon-location" ></i>
             <span>地址管理</span>
           </template></el-menu-item>
+
+          <el-menu-item index="/adminAddress"  > <template slot="title">
+            <i class="el-icon-location" ></i>
+            <a href="/#/dataAnalysis" style="color: black">数据仓库</a>
+<!--            <span>数据仓库</span>-->
+          </template></el-menu-item>
           <!--            <el-menu-item-group>-->
           <!--              <el-menu-item index="1-1">首页</el-menu-item>-->
           <!--              <el-menu-item index="1-2">用户管理</el-menu-item>-->
