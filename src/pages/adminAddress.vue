@@ -2,12 +2,71 @@
   <div>
     <el-card class="crumbs-card">
       <div class="crumbs">
-        <el-breadcrumb separator="/">
-          <el-breadcrumb-item :to="{ path: '/ShopList' }">返回</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/main/second/second' }">地址</el-breadcrumb-item>
+        <el-breadcrumb separator="/" style="font-size: x-large">
+          <!--          <el-breadcrumb-item :to="{ path: '/index' }">首页</el-breadcrumb-item>-->
+          <!--          <el-breadcrumb-item :to="{ path: '/ShopList' }">店铺</el-breadcrumb-item>-->
+          <!--          <el-breadcrumb-item :to="{ path: '/adminAddress' }">地址</el-breadcrumb-item>-->
+          <span>商城管理员系统</span>
         </el-breadcrumb>
       </div>
     </el-card>
+    <el-row style="display: grid;float: left;margin-right: 40px; width: 15%; ">
+      <el-col >
+
+        <el-menu
+            default-active="$route.path"
+            class="el-menu-vertical-demo"
+            @open="handleOpen"
+            @close="handleClose"
+            background-color="#fff"
+            text-color="black"
+            active-text-color="black"
+            router="true"
+            default-openeds="['1']"
+        >
+          <el-submenu  index="1" >
+            <template slot="title">
+              <i class="el-icon-s-home" ></i>
+              <span >返回</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="/index"  >返回商城</el-menu-item>
+              <el-menu-item index="/sellerLogin">退出管理员系统</el-menu-item>
+            </el-menu-item-group>
+
+          </el-submenu>
+          <el-menu-item index="/ShopList"  > <template slot="title">
+            <i class="el-icon-shopping-bag-1" ></i>
+            <span>店铺管理</span>
+          </template></el-menu-item>
+
+          <el-menu-item index="/adminAddress"  > <template slot="title">
+            <i class="el-icon-location" ></i>
+            <span>地址管理</span>
+          </template></el-menu-item>
+          <!--            <el-menu-item-group>-->
+          <!--              <el-menu-item index="1-1">首页</el-menu-item>-->
+          <!--              <el-menu-item index="1-2">用户管理</el-menu-item>-->
+          <!--              <el-menu-item index="1-3">退出</el-menu-item>-->
+          <!--            </el-menu-item-group>-->
+
+
+          <!--          <el-submenu index="3" :to="{ path: '/adminAddress' }">-->
+          <!--            <template slot="title">-->
+
+          <!--              <i class="el-icon-location" ></i>-->
+          <!--              <span>地址管理</span>-->
+          <!--            </template>-->
+          <!--            <el-menu-item-group>-->
+          <!--              <el-menu-item index="1-1">首页</el-menu-item>-->
+          <!--              <el-menu-item index="1-2">用户管理</el-menu-item>-->
+          <!--              <el-menu-item index="1-3">退出</el-menu-item>-->
+          <!--            </el-menu-item-group>-->
+
+          <!--          </el-submenu>-->
+        </el-menu>
+      </el-col>
+    </el-row>
     <el-card class="container">
       <template>
         <el-row>

@@ -70,11 +70,11 @@
               label="商铺评分"
               width="100">
           </el-table-column>
-          <el-table-column
-              prop="offline"
-              label="商铺状态"
-              width="100">
-          </el-table-column>
+<!--          <el-table-column-->
+<!--              prop="offline"-->
+<!--              label="商铺状态"-->
+<!--              width="100">-->
+<!--          </el-table-column>-->
           <el-table-column
               fixed="right"
               label="操作"

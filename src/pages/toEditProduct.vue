@@ -193,7 +193,7 @@ export default {
         params: newProduct
       }).then(
               // console.info(11123456)
-              () => { this.refuse() }
+              () => { this.$router.push({name: 'shopProduct', params: {shopId: this.form.shopId}})}
       )
       // console.info(newProduct)
       // _updateProductById(newProduct).then(
@@ -207,7 +207,10 @@ export default {
       // this.$router.push({path: 'ProductManagement'}).then(res => { _updateProductById(newProduct) })
     },
     refuse () {
-      this.$router.push( 'ProductManagement')
+      // this.$router.push( '/ShopList')
+      this.$router.go(-1)
+      // this.$router.push({name: 'shopProduct', params: {shopId: this.$route.params.id}})
+      this.$router.push({name: 'shopProduct', params: {shopId: this.form.shopId}})
     },
     handleAvatarSuccess (res) {
      // console.info(res)
