@@ -198,6 +198,11 @@ export default new Router({
             path: '/addressFormAdmin',
             name: 'addressFormAdmin',
             component: addressFormAdmin,
+        },{
+            path:'/dataAnalysis',
+            name:'dataAnalysis',
+            component:()=>
+                import('./pages/dataAnalysis')
         }
     ]
 })
