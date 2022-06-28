@@ -137,12 +137,12 @@ export default{
       --swiper-theme-color: #e4291e;
       float:left;
       width:600px;
-      height:617px;
+      height:600px;
       margin-top:5px;
-      margin-left: 153px;
+      //margin-left: 153px;
       img{
-        width:300px;
-        height:300px;
+        width:600px;
+        height:600px;
       }
     }
     .content{
